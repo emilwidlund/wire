@@ -8,6 +8,6 @@
         "declaration": true,
         "moduleResolution": "node"
     },
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "__tests__", "example.ts"],
     "exclude": ["node_modules"]
 }

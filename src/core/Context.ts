@@ -126,12 +126,12 @@ export class Context {
      * Serializes the Context to JSON format
      */
     public serialize() {
-        return JSON.stringify({
+        return {
             id: this.id,
             name: this.name,
             nodes: [...this.nodes.values()].map((node: Node) => node.serialize()),
             connections: [...this.connections.values()].map((connection: Connection) => connection.serialize())
-        });
+        };
     }
 
     static import(importableContext: ImportableContext): Context {
