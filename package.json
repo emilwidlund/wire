@@ -4,6 +4,9 @@
     "main": "index.js",
     "author": "Emil Widlund",
     "license": "MIT",
+    "scripts": {
+        "build": "tsc"
+    },
     "dependencies": {
         "@types/uuid": "^3.4.5",
         "lodash": "^4.17.15",

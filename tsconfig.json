@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es2015",
+        "target": "es2016",
         "lib": ["es2017", "dom"],
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "module": "umd",
+        "outDir": "build",
+        "declaration": true,
+        "moduleResolution": "node"
     },
-    "include": [".ts"]
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"]
 }
