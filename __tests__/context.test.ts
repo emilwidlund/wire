@@ -1,4 +1,5 @@
-import { Context, PortValueType, Node } from '../src/core';
+import { Context } from '../src/core';
+import { AdditionNode } from '../src/nodes';
 
 const contextHasEmptyNodesMap = (ctx: Context) => {
     expect(ctx.nodes.size).toBe(0);
@@ -9,50 +10,16 @@ const contextHasEmptyConnectionsMap = (ctx: Context) => {
 };
 
 const contextCreatesNode = (ctx: Context) => {
-    const node = ctx.createNode({
-        name: 'Test',
-        inputPorts: {
-            a: {
-                name: 'A',
-                valueType: PortValueType.BOOLEAN,
-                defaultValue: true
-            }
-        },
-        outputPorts: {
-            a: {
-                name: 'A',
-                valueType: PortValueType.STRING,
-                defaultValue: 'Test Value'
-            }
-        }
-    });
+    const node = new AdditionNode(ctx);
 
     expect(node).toBeInstanceOf(Node);
     expect(ctx.nodes.size).toBe(1);
 };
 
 const contextCreatesConnection = (ctx: Context) => {
-    const nodeA = ctx.createNode({
-        name: 'Test',
-        outputPorts: {
-            a: {
-                name: 'A',
-                valueType: PortValueType.STRING,
-                defaultValue: 'Test Value'
-            }
-        }
-    });
+    const nodeA = new AdditionNode(ctx);
 
-    const nodeB = ctx.createNode({
-        name: 'Test',
-        inputPorts: {
-            a: {
-                name: 'A',
-                valueType: PortValueType.STRING,
-                defaultValue: 'Test Value'
-            }
-        }
-    });
+    const nodeB = new AdditionNode(ctx);
 
     nodeA.outputPorts.a.connect(nodeB.inputPorts.a);
     expect(ctx.connections.size).toBe(1);
