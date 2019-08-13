@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 
-import { Node, InputPort, OutputPort, NodeInputPorts, NodeOutputPorts, Context, NodeProps } from '../../core';
+import { Node, NodeProps, NodeInputPorts, NodeOutputPorts } from '../../Node';
+import { InputPort, OutputPort } from '../../Port';
+import { Context } from '../../Context';
 
 export interface AdditionNodeInputPorts extends NodeInputPorts {
     a: InputPort<number>;

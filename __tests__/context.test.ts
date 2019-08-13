@@ -1,5 +1,5 @@
 import { Context } from '../src/core';
-import { AdditionNode } from '../src/nodes';
+import { AdditionNode } from '../src/core/nodes';
 
 const contextHasEmptyNodesMap = (ctx: Context) => {
     expect(ctx.nodes.size).toBe(0);
@@ -9,19 +9,18 @@ const contextHasEmptyConnectionsMap = (ctx: Context) => {
     expect(ctx.connections.size).toBe(0);
 };
 
-const contextCreatesNode = (ctx: Context) => {
+const contextAddsNode = (ctx: Context) => {
     const node = new AdditionNode(ctx);
 
-    expect(node).toBeInstanceOf(Node);
+    expect(Object.getPrototypeOf(node.constructor).name).toBe('Node');
     expect(ctx.nodes.size).toBe(1);
 };
 
-const contextCreatesConnection = (ctx: Context) => {
+const contextAddsConnection = (ctx: Context) => {
     const nodeA = new AdditionNode(ctx);
-
     const nodeB = new AdditionNode(ctx);
 
-    nodeA.outputPorts.a.connect(nodeB.inputPorts.a);
+    nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
     expect(ctx.connections.size).toBe(1);
 };
 
@@ -47,7 +46,7 @@ describe('New Context Instance', () => {
         expect(ctx).toBeInstanceOf(Context);
 
         expect(typeof ctx.id).toBe('string');
-        expect(typeof ctx.name).toBe('string');
+        expect(typeof ctx.data).toBe('object');
         expect(ctx.nodes).toBeInstanceOf(Map);
         expect(ctx.connections).toBeInstanceOf(Map);
     });
@@ -64,12 +63,12 @@ describe('New Context Instance', () => {
 
     test('Should create a Node and add it to the Nodes Map', () => {
         const ctx = new Context();
-        contextCreatesNode(ctx);
+        contextAddsNode(ctx);
     });
 
     test('Should add connections the Connections Map', () => {
         const ctx = new Context();
-        contextCreatesConnection(ctx);
+        contextAddsConnection(ctx);
     });
 
     test('Should be serializable into JSON format', () => {
@@ -105,12 +104,12 @@ describe('Imported Context', () => {
 
     test('Should create a Node and add it to the Nodes Map', () => {
         const ctx = Context.import(serializedContextObject);
-        contextCreatesNode(ctx);
+        contextAddsNode(ctx);
     });
 
     test('Should add connections the Connections Map', () => {
         const ctx = Context.import(serializedContextObject);
-        contextCreatesConnection(ctx);
+        contextAddsConnection(ctx);
     });
 
     test('Should be serializable into JSON format', () => {

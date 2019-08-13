@@ -1,5 +1,5 @@
-import { AdditionNode } from './nodes';
 import { Context } from './core/Context';
+import { AdditionNode } from './core/nodes';
 
 const ctx = new Context();
 
