@@ -1,4 +1,4 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort, PortProps } from './Port';
@@ -6,26 +6,21 @@ import { Context } from './Context';
 import { Connection } from './Connection';
 import { serializeObject } from '../helpers';
 
-export class Node {
+export abstract class Node {
     /**
      * Unique Identifier
      */
     public id: string;
 
     /**
-     * Name of the Node
-     */
-    public name: string;
-
-    /**
      * Input Ports
      */
-    public inputPorts: { [key: string]: InputPort } = {};
+    public inputPorts: { [key: string]: InputPort<any> } = {};
 
     /**
      * Output Ports
      */
-    public outputPorts: { [key: string]: OutputPort } = {};
+    public outputPorts: { [key: string]: OutputPort<any> } = {};
 
     /**
      * Reference to the parent Context
@@ -42,10 +37,9 @@ export class Node {
      * @param context {Context} - The context the Node belongs to
      * @param props {NodeProps} - Node Properties
      */
-    constructor(context: Context, props: NodeProps) {
+    constructor(context: Context, props: NodeProps = {}) {
         _.defaults(props, {
             id: uuid(),
-            name: 'Unititled',
             inputPorts: {},
             outputPorts: {},
             data: {}
@@ -54,14 +48,27 @@ export class Node {
         this.context = context;
 
         this.id = props.id;
-        this.name = props.name;
         this.data = props.data;
 
-        this.buildPorts(props);
-        this.buildProcessFunctions(props);
+        this.generatePorts(props);
+
+        context.addNode(this);
 
         this.initialize && this.initialize();
         this.compute && this.compute();
+    }
+
+    /**
+     * Generates Input & Output Ports
+     */
+    private generatePorts(nodeProps: NodeProps) {
+        for (const inputPort in nodeProps.inputPorts) {
+            this.inputPorts[inputPort] = new InputPort(this, nodeProps.inputPorts[inputPort]);
+        }
+
+        for (const outputPort in nodeProps.outputPorts) {
+            this.outputPorts[outputPort] = new OutputPort(this, nodeProps.outputPorts[outputPort]);
+        }
     }
 
     /**
@@ -108,88 +115,38 @@ export class Node {
     }
 
     /**
-     * Build node ports
-     * @param nodeProps {NodeProps} - Node Properties
+     * Serializes Node properties
      */
-    private buildPorts(nodeProps: NodeProps) {
-        if (typeof nodeProps.inputPorts === 'object') {
-            for (const inputPort in nodeProps.inputPorts) {
-                this.inputPorts[inputPort] = new InputPort(this, nodeProps.inputPorts[inputPort]);
-            }
-        }
-
-        if (typeof nodeProps.outputPorts === 'object') {
-            for (const outputPort in nodeProps.outputPorts) {
-                this.outputPorts[outputPort] = new OutputPort(this, nodeProps.outputPorts[outputPort]);
-            }
-        }
-    }
-
-    /**
-     * Build initialize, compute & cleanup functions
-     * @param nodeProps {NodeProps} - Node Properties
-     */
-    private buildProcessFunctions(nodeProps: NodeProps) {
-        if (typeof nodeProps.initialize === 'function') {
-            this.initialize = nodeProps.initialize.bind(this);
-        }
-
-        if (typeof nodeProps.compute === 'function') {
-            this.compute = nodeProps.compute.bind(this);
-        }
-
-        if (typeof nodeProps.cleanup === 'function') {
-            this.cleanup = nodeProps.cleanup.bind(this);
-        }
-    }
-
-    /**
-     * Serializes the ports to JSON format
-     */
-    private serializePorts(ports: NodePorts) {
-        const serializedPorts: { [key: string]: any } = {};
-
-        for (const port in ports) {
-            serializedPorts[port] = ports[port].serialize();
-        }
-
-        return serializedPorts;
-    }
-
-    /**
-     * Serializes the Node to JSON format
-     */
-    public serialize() {
+    serialize() {
         return {
             id: this.id,
-            name: this.name,
-            inputPorts: this.serializePorts(this.inputPorts),
-            outputPorts: this.serializePorts(this.outputPorts),
-            data: serializeObject(this.data),
-            initialize: this.initialize && this.initialize.toString(),
-            compute: this.compute && this.compute.toString(),
-            cleanup: this.cleanup && this.compute.toString()
+            name: this.constructor.name,
+            inputPorts: Object.values(this.inputPorts).map(ip => ip.serialize()),
+            outputPorts: Object.values(this.outputPorts).map(op => op.serialize()),
+            data: serializeObject(this.data)
         };
     }
 }
 
 export interface NodeProps {
     id?: string;
-    name?: string;
-    inputPorts?: NodePortProps;
-    outputPorts?: NodePortProps;
+    inputPorts?: NodePortProps<any>;
+    outputPorts?: NodePortProps<any>;
     data?: NodeData;
-    initialize?(): void;
-    compute?(): void;
-    cleanup?(): void;
 }
 
-export interface NodePortProps {
-    [key: string]: PortProps;
+export type NodePortProps<T> = {
+    [key: string]: PortProps<T>;
+};
+
+export interface NodeData {
+    [key: string]: any;
 }
 
-export type NodeData = { [key: string]: any };
+export interface NodeInputPorts {
+    [key: string]: InputPort<any>;
+}
 
-export interface NodePorts {
-    [key: string]: InputPort | OutputPort;
+export interface NodeOutputPorts {
+    [key: string]: OutputPort<any>;
 }

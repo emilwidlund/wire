@@ -1,7 +1,7 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 
-import { InputPort, OutputPort, PortValueType } from './Port';
+import { InputPort, OutputPort } from './Port';
 import { Context } from './Context';
 
 export class Connection {
@@ -13,12 +13,12 @@ export class Connection {
     /**
      * From Port
      */
-    public fromPort: OutputPort;
+    public fromPort: OutputPort<any>;
 
     /**
      * To Port
      */
-    public toPort: InputPort;
+    public toPort: InputPort<any>;
 
     /**
      * Reference the parent Context
@@ -65,6 +65,6 @@ export class Connection {
 
 export interface ConnectionProps {
     id?: string;
-    fromPort: OutputPort;
-    toPort: InputPort;
+    fromPort: OutputPort<any>;
+    toPort: InputPort<any>;
 }

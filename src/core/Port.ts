@@ -1,11 +1,11 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 
 import { Node } from './Node';
 import { Connection } from './Connection';
 import { serializeObject } from '../helpers';
 
-export abstract class Port {
+export abstract class Port<TValueType> {
     /**
      * Unique Identifier
      */
@@ -24,12 +24,7 @@ export abstract class Port {
     /**
      * Port's defaultValue
      */
-    public defaultValue: PortValue;
-
-    /**
-     * Port Value's type
-     */
-    public valueType: PortValueType;
+    public defaultValue: TValueType;
 
     /**
      * Reference to the parent Node
@@ -44,18 +39,16 @@ export abstract class Port {
     /**
      * Port's current value
      */
-    private _value: PortValue;
+    private _value: TValueType;
 
     /**
      * Port Instance Constructor
      * @param node {Node} - The node the Port belongs to
      * @param props {PortProps} - Port Properties
      */
-    constructor(node: Node, props: PortProps) {
+    constructor(node: Node, props: PortProps<TValueType> = {}) {
         _.defaults(props, {
             id: uuid(),
-            name: 'Untitled',
-            valueType: PortValueType.NUMBER,
             defaultValue: 0,
             data: {}
         });
@@ -63,10 +56,8 @@ export abstract class Port {
         this.node = node;
 
         this.id = props.id;
-        this.name = props.name;
         this.defaultValue = props.defaultValue;
         this.value = props.value || props.defaultValue;
-        this.valueType = props.valueType;
         this.data = props.data;
     }
 
@@ -80,7 +71,7 @@ export abstract class Port {
     /**
      * Sets the internal value
      */
-    public set value(value: PortValue) {
+    public set value(value: TValueType) {
         this._value = value;
 
         if (this.type === PortType.INPUT) {
@@ -100,7 +91,7 @@ export abstract class Port {
     public get connections(): Connection[] {
         let pinConnections: Connection[] = [];
 
-        this.node.connections.forEach(connection => {
+        this.node.connections.forEach((connection: Connection) => {
             if (connection.fromPort.id === this.id || connection.toPort.id === this.id) {
                 pinConnections.push(connection);
             }
@@ -117,28 +108,26 @@ export abstract class Port {
     }
 
     /**
-     * Serializes the Port to JSON format
+     * Serializes Port properties
      */
-    public serialize() {
+    serialize() {
         return {
             id: this.id,
-            name: this.name,
             defaultValue: this.defaultValue,
             value: this.value,
-            valueType: this.valueType,
             data: serializeObject(this.data)
         };
     }
 }
 
-export class InputPort extends Port {
+export class InputPort<TValueType> extends Port<TValueType> {
     /**
      * Port Type
      */
     type = PortType.INPUT;
 }
 
-export class OutputPort extends Port {
+export class OutputPort<TValueType> extends Port<TValueType> {
     /**
      * Port Type
      */
@@ -148,7 +137,7 @@ export class OutputPort extends Port {
      * Connects this port with an InputPort
      * @param targetPort {InputPort} - Input Port to connect with
      */
-    public connect(targetPort: InputPort): Connection {
+    public connect(targetPort: InputPort<TValueType>): Connection {
         return this.node.context.createConnection({
             fromPort: this,
             toPort: targetPort
@@ -161,26 +150,11 @@ export enum PortType {
     OUTPUT = 'OUTPUT'
 }
 
-export type PortValue = number | boolean | string | object | number[] | boolean[] | string[] | object[];
-
-export enum PortValueType {
-    NUMBER = 'NUMBER',
-    BOOLEAN = 'BOOLEAN',
-    STRING = 'STRING',
-    OBJECT = 'OBJECT',
-    NUMBER_ARRAY = 'NUMBER_ARRAY',
-    BOOLEAN_ARRAY = 'BOOLEAN_ARRAY',
-    STRING_ARRAY = 'STRING_ARRAY',
-    OBJECT_ARRAY = 'OBJECT_ARRAY'
-}
-
-export interface PortProps {
+export type PortProps<TValueType> = {
     id?: string;
-    name?: string;
-    valueType?: PortValueType;
-    defaultValue?: PortValue;
-    value?: PortValue;
+    defaultValue?: TValueType;
+    value?: TValueType;
     data?: PortData;
-}
+};
 
 export type PortData = { [key: string]: any };

@@ -1,9 +1,10 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 
-import { Node, NodeProps, NodePortProps, NodeData } from './Node';
+import { Node, NodePortProps, NodeData } from './Node';
 import { Connection, ConnectionProps } from './Connection';
 import { PortType, OutputPort, InputPort } from './Port';
+import * as Nodes from '../nodes';
 
 export class Context {
     /**
@@ -15,6 +16,11 @@ export class Context {
      * Context Name
      */
     public name: string;
+
+    /**
+     * Optional data store
+     */
+    public data?: ContextData = {};
 
     /**
      * Nodes Collection
@@ -32,13 +38,13 @@ export class Context {
     constructor(props: ContextProps = {}) {
         _.defaults(props, {
             id: uuid(),
-            name: 'Untitled'
+            data: {}
         });
 
         this.id = props.id;
-        this.name = props.name;
+        this.data = props.data;
 
-        this.nodes = new Map();
+        this.nodes = new Map<string, Node>();
         this.connections = new Map<string, Connection>();
     }
 
@@ -46,16 +52,8 @@ export class Context {
      * Creates a node and adds it to the context
      * @param node {Node} - A Node
      */
-    public createNode(nodeProps: NodeProps): Node {
-        // type InputPorts = Record<keyof typeof nodeProps.inputPorts, InputPort>;
-        // type InputPortsTest = { [k in keyof typeof nodeProps.inputPorts]: InputPort };
-
-        // type OutputPorts = Record<keyof typeof nodeProps.outputPorts, OutputPort>;
-        // type OutputPortsTest = { [k in keyof typeof nodeProps.outputPorts]: OutputPort };
-
-        const node = new Node(this, nodeProps);
-
-        if (node) {
+    public addNode(node: any) {
+        if (node instanceof Node) {
             this.nodes.set(node.id, node);
 
             return node;
@@ -66,8 +64,8 @@ export class Context {
      * Removes a node from the context
      * @param node {Node} - Node to remove
      */
-    public removeNode(node: Node) {
-        if (this.nodes.has(node.id)) {
+    public removeNode(node: any) {
+        if (node instanceof Node && this.nodes.has(node.id)) {
             this.nodes.delete(node.id);
         } else {
             throw new Error('Node Removal Failed - Node does not exist in context');
@@ -95,12 +93,6 @@ export class Context {
             throw new Error('Connection Failed - Ports must be on different nodes');
         }
 
-        if (fromPort.valueType !== toPort.valueType) {
-            throw new Error(
-                `Connection Failed - Ports have different Value Types (fromPort: ${fromPort.valueType} toPort: ${toPort.valueType})`
-            );
-        }
-
         const connection = new Connection(this, connectionProps);
 
         if (connection) {
@@ -123,39 +115,38 @@ export class Context {
     }
 
     /**
-     * Serializes the Context to JSON format
+     * Serializes Context
      */
-    public serialize() {
+    serialize() {
         return {
             id: this.id,
-            name: this.name,
-            nodes: [...this.nodes.values()].map((node: Node) => node.serialize()),
-            connections: [...this.connections.values()].map((connection: Connection) => connection.serialize())
+            data: this.data,
+            nodes: [...this.nodes.values()].map(node => node.serialize()),
+            connections: [...this.connections.values()].map(connection => connection.serialize())
         };
     }
 
-    static import(importableContext: ImportableContext): Context {
+    /**
+     * Imports a serialized Context
+     * @param importableContext
+     */
+    static import(importableContext: ImportableContext, customNodes: { [key: string]: any } = {}): Context {
         const context = new this({
-            id: importableContext.id,
-            name: importableContext.name
+            id: importableContext.id
         });
 
+        const availableNodeClasses = _.merge(Nodes, customNodes);
+
         for (const node of importableContext.nodes) {
-            context.createNode({
-                id: node.id,
-                name: node.name,
-                inputPorts: node.inputPorts,
-                outputPorts: node.outputPorts,
-                data: node.data,
-                initialize: eval(node.initialize),
-                compute: eval(node.compute),
-                cleanup: eval(node.cleanup)
-            });
+            const n = availableNodeClasses[node.name];
+            if (Object.getPrototypeOf(n) === Node) {
+                new n(context, node);
+            }
         }
 
         for (const connection of importableContext.connections) {
-            let fromPort: OutputPort;
-            let toPort: InputPort;
+            let fromPort: OutputPort<any>;
+            let toPort: InputPort<any>;
 
             context.nodes.forEach(node => {
                 for (const op in node.outputPorts) {
@@ -180,25 +171,26 @@ export class Context {
 
 export interface ContextProps {
     id?: string;
-    name?: string;
+    data?: NodeData;
+}
+
+export interface ContextData {
+    [key: string]: any;
 }
 
 export interface ImportableContext {
     id: string;
-    name?: string;
+    data?: ContextData;
     nodes: ImportableNode[];
     connections: ImportableConnection[];
 }
 
 export interface ImportableNode {
     id: string;
-    name?: string;
-    inputPorts?: NodePortProps;
-    outputPorts?: NodePortProps;
+    name: string;
+    inputPorts?: NodePortProps<any>;
+    outputPorts?: NodePortProps<any>;
     data?: NodeData;
-    initialize?: string;
-    compute?: string;
-    cleanup?: string;
 }
 
 export interface ImportableConnection {
