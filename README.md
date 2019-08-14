@@ -4,7 +4,7 @@
 
 ### What is Wire?
 
-Wire is a TypeScript framework designed to shuffle data in a unidirectional way.
+Wire is a TypeScript framework designed to shuffle data in a blazing fast, reactive & unidirectional way.
 It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools.
 
 #### Nodes
@@ -15,8 +15,9 @@ methods. The primary purpose of a Node is to process & digest data of different 
 
 #### Connections
 
-Connections are links that transports values between nodes' input & output ports. Passing values between Nodes using
-connections is super easy, and built to be reactive & blazing fast.
+Connections are links that transports values between nodes' input & output ports. Connections may only be constructed between
+output ports & input ports. Ports may also have validation functions that restricts connection compability between ports.
+An output port may have multiple outgoing connections, while input ports are limited to 1 incoming connection.
 
 ### Examples
 
