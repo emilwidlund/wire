@@ -12,8 +12,7 @@ const contextHasEmptyConnectionsMap = (ctx: Context) => {
 const contextAddsNode = (ctx: Context) => {
     const node = new AdditionNode(ctx);
 
-    expect(Object.getPrototypeOf(node.constructor).name).toBe('Node');
-    expect(ctx.nodes.size).toBe(1);
+    expect(ctx.nodes.has(node.id)).toBeTruthy();
 };
 
 const contextAddsConnection = (ctx: Context) => {
