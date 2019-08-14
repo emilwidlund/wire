@@ -1,12 +1,13 @@
 {
-    "name": "graaf",
+    "name": "wire",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "build/index.js",
     "author": "Emil Widlund",
     "license": "MIT",
     "scripts": {
         "build": "tsc",
-        "test": "jest"
+        "test": "jest",
+        "postinstall": "npm run build"
     },
     "dependencies": {
         "lodash": "^4.17.15",
