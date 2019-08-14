@@ -1,6 +1,13 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
+const mobx_1 = require("mobx");
 const _ = require("lodash");
 const Port_1 = require("./Port");
 const helpers_1 = require("../helpers");
@@ -62,13 +69,13 @@ class Node {
      * All connections associated to the Node
      */
     get connections() {
-        let pinConnections = [];
+        let portConnections = [];
         this.context.connections.forEach(connection => {
             if (connection.fromPort.node.id === this.id || connection.toPort.node.id === this.id) {
-                pinConnections.push(connection);
+                portConnections.push(connection);
             }
         });
-        return pinConnections;
+        return portConnections;
     }
     /**
      * Serializes Node properties
@@ -83,4 +90,28 @@ class Node {
         };
     }
 }
+__decorate([
+    mobx_1.observable
+], Node.prototype, "id", void 0);
+__decorate([
+    mobx_1.observable
+], Node.prototype, "inputPorts", void 0);
+__decorate([
+    mobx_1.observable
+], Node.prototype, "outputPorts", void 0);
+__decorate([
+    mobx_1.observable
+], Node.prototype, "context", void 0);
+__decorate([
+    mobx_1.observable
+], Node.prototype, "data", void 0);
+__decorate([
+    mobx_1.action
+], Node.prototype, "generatePorts", null);
+__decorate([
+    mobx_1.action
+], Node.prototype, "destroy", null);
+__decorate([
+    mobx_1.computed
+], Node.prototype, "connections", null);
 exports.Node = Node;

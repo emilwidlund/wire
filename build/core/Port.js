@@ -1,6 +1,13 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
+const mobx_1 = require("mobx");
 const _ = require("lodash");
 const helpers_1 = require("../helpers");
 class Port {
@@ -45,13 +52,13 @@ class Port {
      * A collection of connections this port is associated with
      */
     get connections() {
-        let pinConnections = [];
+        let portConnection = [];
         this.node.connections.forEach((connection) => {
             if (connection.fromPort.id === this.id || connection.toPort.id === this.id) {
-                pinConnections.push(connection);
+                portConnection.push(connection);
             }
         });
-        return pinConnections;
+        return portConnection;
     }
     /**
      * Boolean that flags if port is connected
@@ -71,6 +78,30 @@ class Port {
         };
     }
 }
+__decorate([
+    mobx_1.observable
+], Port.prototype, "id", void 0);
+__decorate([
+    mobx_1.observable
+], Port.prototype, "type", void 0);
+__decorate([
+    mobx_1.observable
+], Port.prototype, "defaultValue", void 0);
+__decorate([
+    mobx_1.observable
+], Port.prototype, "node", void 0);
+__decorate([
+    mobx_1.observable
+], Port.prototype, "data", void 0);
+__decorate([
+    mobx_1.observable
+], Port.prototype, "_value", void 0);
+__decorate([
+    mobx_1.computed
+], Port.prototype, "connections", null);
+__decorate([
+    mobx_1.computed
+], Port.prototype, "isConnected", null);
 exports.Port = Port;
 class InputPort extends Port {
     constructor() {
@@ -101,6 +132,9 @@ class OutputPort extends Port {
         });
     }
 }
+__decorate([
+    mobx_1.action
+], OutputPort.prototype, "connect", null);
 exports.OutputPort = OutputPort;
 var PortType;
 (function (PortType) {

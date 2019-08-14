@@ -6,10 +6,6 @@ export declare abstract class Port<TValueType> {
      */
     id: string;
     /**
-     * Port Name
-     */
-    name: string;
-    /**
      * Port type
      */
     abstract type: PortType;

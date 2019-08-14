@@ -6,10 +6,6 @@ export declare class Context {
      */
     id: string;
     /**
-     * Context Name
-     */
-    name: string;
-    /**
      * Optional data store
      */
     data?: ContextData;
