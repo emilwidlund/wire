@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { observable, action } from 'mobx';
 import * as _ from 'lodash';
 
 import { Node, NodePortProps, NodeData } from './Node';
@@ -10,27 +11,22 @@ export class Context {
     /**
      * Unique Identifier
      */
-    public id: string;
-
-    /**
-     * Context Name
-     */
-    public name: string;
+    @observable public id: string;
 
     /**
      * Optional data store
      */
-    public data?: ContextData = {};
+    @observable public data?: ContextData = {};
 
     /**
      * Nodes Collection
      */
-    public nodes: Map<string, Node>;
+    @observable public nodes: Map<string, Node>;
 
     /**
      * Connections Collection
      */
-    public connections: Map<string, Connection>;
+    @observable public connections: Map<string, Connection>;
 
     /**
      * Context Instance Constructor
@@ -52,7 +48,7 @@ export class Context {
      * Creates a node and adds it to the context
      * @param node {Node} - A Node
      */
-    public addNode(node: any) {
+    @action public addNode(node: any) {
         if (node instanceof Node) {
             this.nodes.set(node.id, node);
 
@@ -64,7 +60,7 @@ export class Context {
      * Removes a node from the context
      * @param node {Node} - Node to remove
      */
-    public removeNode(node: any) {
+    @action public removeNode(node: any) {
         if (node instanceof Node && this.nodes.has(node.id)) {
             this.nodes.delete(node.id);
         } else {
@@ -76,7 +72,7 @@ export class Context {
      * Creates a connection between an inputPort and outputPort, and adds it to the context
      * @param connectionProps {ConnectionProps} - Connection Properties
      */
-    public createConnection(connectionProps: ConnectionProps): Connection {
+    @action public createConnection(connectionProps: ConnectionProps): Connection {
         const { fromPort, toPort } = connectionProps;
 
         if (fromPort.type !== PortType.OUTPUT) {
@@ -106,7 +102,7 @@ export class Context {
      * Removes a connection from the context
      * @param connection {Connection} - Connection to remove
      */
-    public removeConnection(connection: Connection) {
+    @action public removeConnection(connection: Connection) {
         if (this.connections.has(connection.id)) {
             this.connections.delete(connection.id);
         } else {

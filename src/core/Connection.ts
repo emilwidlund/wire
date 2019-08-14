@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { observable, action } from 'mobx';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort } from './Port';
@@ -8,22 +9,22 @@ export class Connection {
     /**
      * Unique Identifier
      */
-    public id: string;
+    @observable public id: string;
 
     /**
      * From Port
      */
-    public fromPort: OutputPort<any>;
+    @observable public fromPort: OutputPort<any>;
 
     /**
      * To Port
      */
-    public toPort: InputPort<any>;
+    @observable public toPort: InputPort<any>;
 
     /**
      * Reference the parent Context
      */
-    public context: Context;
+    @observable public context: Context;
 
     /**
      * Connection Instance Constructor
@@ -45,7 +46,7 @@ export class Connection {
     /**
      * Destroys the Connection
      */
-    public destroy() {
+    @action public destroy() {
         this.context.removeConnection(this);
 
         this.toPort.value = this.toPort.defaultValue;

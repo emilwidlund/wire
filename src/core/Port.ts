@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { observable, action, computed } from 'mobx';
 import * as _ from 'lodash';
 
 import { Node } from './Node';
@@ -9,37 +10,32 @@ export abstract class Port<TValueType> {
     /**
      * Unique Identifier
      */
-    public id: string;
-
-    /**
-     * Port Name
-     */
-    public name: string;
+    @observable public id: string;
 
     /**
      * Port type
      */
-    public abstract type: PortType;
+    @observable public abstract type: PortType;
 
     /**
      * Port's defaultValue
      */
-    public defaultValue: TValueType;
+    @observable public defaultValue: TValueType;
 
     /**
      * Reference to the parent Node
      */
-    public node: Node;
+    @observable public node: Node;
 
     /**
      * Optional data store
      */
-    public data?: PortData;
+    @observable public data?: PortData;
 
     /**
      * Port's current value
      */
-    private _value: TValueType;
+    @observable private _value: TValueType;
 
     /**
      * Port Instance Constructor
@@ -88,22 +84,22 @@ export abstract class Port<TValueType> {
     /**
      * A collection of connections this port is associated with
      */
-    public get connections(): Connection[] {
-        let pinConnections: Connection[] = [];
+    @computed public get connections(): Connection[] {
+        let portConnection: Connection[] = [];
 
         this.node.connections.forEach((connection: Connection) => {
             if (connection.fromPort.id === this.id || connection.toPort.id === this.id) {
-                pinConnections.push(connection);
+                portConnection.push(connection);
             }
         });
 
-        return pinConnections;
+        return portConnection;
     }
 
     /**
      * Boolean that flags if port is connected
      */
-    public get isConnected(): Boolean {
+    @computed public get isConnected(): Boolean {
         return this.connections.length > 0;
     }
 
@@ -137,7 +133,7 @@ export class OutputPort<TValueType> extends Port<TValueType> {
      * Connects this port with an InputPort
      * @param targetPort {InputPort} - Input Port to connect with
      */
-    public connect(targetPort: InputPort<TValueType>): Connection {
+    @action public connect(targetPort: InputPort<TValueType>): Connection {
         return this.node.context.createConnection({
             fromPort: this,
             toPort: targetPort

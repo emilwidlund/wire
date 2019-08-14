@@ -1,5 +1,6 @@
 import { Context } from '../src/core';
 import { AdditionNode } from '../src/core/nodes';
+import { ObservableMap } from 'mobx';
 
 const contextHasEmptyNodesMap = (ctx: Context) => {
     expect(ctx.nodes.size).toBe(0);
@@ -46,8 +47,8 @@ describe('New Context Instance', () => {
 
         expect(typeof ctx.id).toBe('string');
         expect(typeof ctx.data).toBe('object');
-        expect(ctx.nodes).toBeInstanceOf(Map);
-        expect(ctx.connections).toBeInstanceOf(Map);
+        expect(ctx.nodes).toBeInstanceOf(ObservableMap);
+        expect(ctx.connections).toBeInstanceOf(ObservableMap);
     });
 
     test('Should have an empty Map of Nodes', () => {
@@ -88,7 +89,13 @@ describe('Imported Context', () => {
 
     test('Should import context from JSON', () => {
         const ctx = Context.import(serializedContextObject);
+
         expect(ctx).toBeInstanceOf(Context);
+
+        expect(typeof ctx.id).toBe('string');
+        expect(typeof ctx.data).toBe('object');
+        expect(ctx.nodes).toBeInstanceOf(ObservableMap);
+        expect(ctx.connections).toBeInstanceOf(ObservableMap);
     });
 
     test('Should have an empty Map of Nodes', () => {

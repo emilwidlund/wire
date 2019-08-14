@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { observable, action, computed } from 'mobx';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort, PortProps } from './Port';
@@ -10,27 +11,27 @@ export abstract class Node {
     /**
      * Unique Identifier
      */
-    public id: string;
+    @observable public id: string;
 
     /**
      * Input Ports
      */
-    public inputPorts: { [key: string]: InputPort<any> } = {};
+    @observable public inputPorts: { [key: string]: InputPort<any> } = {};
 
     /**
      * Output Ports
      */
-    public outputPorts: { [key: string]: OutputPort<any> } = {};
+    @observable public outputPorts: { [key: string]: OutputPort<any> } = {};
 
     /**
      * Reference to the parent Context
      */
-    public context: Context;
+    @observable public context: Context;
 
     /**
      * Optional data store
      */
-    public data?: NodeData = {};
+    @observable public data?: NodeData = {};
 
     /**
      * Node Instance Constructor
@@ -61,7 +62,7 @@ export abstract class Node {
     /**
      * Generates Input & Output Ports
      */
-    private generatePorts(nodeProps: NodeProps) {
+    @action private generatePorts(nodeProps: NodeProps) {
         for (const inputPort in nodeProps.inputPorts) {
             this.inputPorts[inputPort] = new InputPort(this, nodeProps.inputPorts[inputPort]);
         }
@@ -89,7 +90,7 @@ export abstract class Node {
     /**
      * Destroys the Node
      */
-    public destroy() {
+    @action public destroy() {
         this.cleanup && this.cleanup();
 
         this.context.removeNode(this);
@@ -102,16 +103,16 @@ export abstract class Node {
     /**
      * All connections associated to the Node
      */
-    public get connections(): Connection[] {
-        let pinConnections: Connection[] = [];
+    @computed public get connections(): Connection[] {
+        let portConnections: Connection[] = [];
 
         this.context.connections.forEach(connection => {
             if (connection.fromPort.node.id === this.id || connection.toPort.node.id === this.id) {
-                pinConnections.push(connection);
+                portConnections.push(connection);
             }
         });
 
-        return pinConnections;
+        return portConnections;
     }
 
     /**
