@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.serializeObject = (object) => {
+exports.serializeObject = function (object) {
     if (typeof object !== 'object')
         return null;
-    const recursiveDataSerializer = (object) => {
-        const obj = {};
-        for (const key in object) {
+    var recursiveDataSerializer = function (object) {
+        var obj = {};
+        for (var key in object) {
             if (typeof object[key] === 'object') {
                 obj[key] = recursiveDataSerializer(object[key]);
             }

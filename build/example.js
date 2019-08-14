@@ -1,26 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Context_1 = require("./core/Context");
-const nodes_1 = require("./core/nodes");
-const ctx = new Context_1.Context();
-const node = new nodes_1.AdditionNode(ctx, {
+var Context_1 = require("./core/Context");
+var nodes_1 = require("./core/nodes");
+var ctx = new Context_1.Context();
+var node = new nodes_1.AdditionNode(ctx, {
     inputPorts: {
         what: {
             defaultValue: 60
         }
     }
 });
-const nodeB = new nodes_1.AdditionNode(ctx, {
+var nodeB = new nodes_1.AdditionNode(ctx, {
     inputPorts: {
         what: {
             defaultValue: 60
         }
     }
 });
-const connection = node.outputPorts.result.connect(nodeB.inputPorts.a);
-const serializedContext = ctx.serialize();
-const serializedContextString = JSON.stringify(serializedContext);
-const serializedContextObject = JSON.parse(serializedContextString);
-const importedContext = Context_1.Context.import(serializedContextObject);
+var connection = node.outputPorts.result.connect(nodeB.inputPorts.a);
+var serializedContext = ctx.serialize();
+var serializedContextString = JSON.stringify(serializedContext);
+var serializedContextObject = JSON.parse(serializedContextString);
+var importedContext = Context_1.Context.import(serializedContextObject);
 console.dir(ctx);
 console.dir(importedContext);

@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es2016",
+        "target": "es5",
         "lib": ["es2017", "dom"],
         "noImplicitAny": true,
         "module": "commonjs",
         "outDir": "build",
         "declaration": true,
         "moduleResolution": "node",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "downlevelIteration": true
     },
     "include": ["./src/**/*"],
     "exclude": ["node_modules"]

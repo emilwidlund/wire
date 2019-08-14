@@ -6,14 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const uuid_1 = require("uuid");
-const mobx_1 = require("mobx");
-const _ = require("lodash");
-class Connection {
+var uuid_1 = require("uuid");
+var mobx_1 = require("mobx");
+var _ = require("lodash");
+var Connection = /** @class */ (function () {
     /**
      * Connection Instance Constructor
      */
-    constructor(context, props) {
+    function Connection(context, props) {
         _.defaults(props, {
             id: uuid_1.v4()
         });
@@ -26,34 +26,35 @@ class Connection {
     /**
      * Destroys the Connection
      */
-    destroy() {
+    Connection.prototype.destroy = function () {
         this.context.removeConnection(this);
         this.toPort.value = this.toPort.defaultValue;
-    }
+    };
     /**
      * Serializes the Connection to JSON format
      */
-    serialize() {
+    Connection.prototype.serialize = function () {
         return {
             id: this.id,
             fromPortId: this.fromPort.id,
             toPortId: this.toPort.id
         };
-    }
-}
-__decorate([
-    mobx_1.observable
-], Connection.prototype, "id", void 0);
-__decorate([
-    mobx_1.observable
-], Connection.prototype, "fromPort", void 0);
-__decorate([
-    mobx_1.observable
-], Connection.prototype, "toPort", void 0);
-__decorate([
-    mobx_1.observable
-], Connection.prototype, "context", void 0);
-__decorate([
-    mobx_1.action
-], Connection.prototype, "destroy", null);
+    };
+    __decorate([
+        mobx_1.observable
+    ], Connection.prototype, "id", void 0);
+    __decorate([
+        mobx_1.observable
+    ], Connection.prototype, "fromPort", void 0);
+    __decorate([
+        mobx_1.observable
+    ], Connection.prototype, "toPort", void 0);
+    __decorate([
+        mobx_1.observable
+    ], Connection.prototype, "context", void 0);
+    __decorate([
+        mobx_1.action
+    ], Connection.prototype, "destroy", null);
+    return Connection;
+}());
 exports.Connection = Connection;
