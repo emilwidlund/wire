@@ -9,7 +9,7 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 
 #### Nodes
 
-Nodes are the most important entities in Wire. They are conceptually very similar to functions. A node consists of
+Nodes are the most central entities in Wire. They are conceptually very similar to functions. A node consists of
 input ports (much like a function's arguments), output ports (much like a function's return value) and a set of lifecycle
 methods. The primary purpose of a Node is to process & digest data of different kinds.
 
