@@ -17,7 +17,7 @@ methods. The primary purpose of a Node is to process & derive data from input po
 
 Nodes may define lifecycle methods that operates at certain points during a node's lifecycle:
 
--   initilize(): Runs whenever the node is created.
+-   initialize(): Runs whenever the node is created.
 -   compute(): Runs when any input port's value is mutated. This is usually where you produce & populate values for your output ports.
 -   dispose(): Runs whenever the node is destroyed.
 
