@@ -25,6 +25,10 @@ Connections are links that transports values between nodes' input & output ports
 output ports & input ports. Ports may also have validation functions that restricts connection compability between ports.
 An output port may have multiple outgoing connections, while input ports are limited to 1 incoming connection.
 
+### Installation
+
+<span style="color:red">Wire is still under development and not available on npm at this time.</span>
+
 ### Examples
 
 #### Basic usage
