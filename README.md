@@ -5,6 +5,8 @@
 Wire is a framework written in TypeScript designed to shuffle data in a blazing fast, reactive & unidirectional way.
 It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools.
 
+Wire is still under development and not considered released yet.
+
 ### Nodes
 
 Nodes are the most central entities in Wire. They are conceptually very similar to functions. A node consists of
@@ -27,7 +29,7 @@ An output port may have multiple outgoing connections, while input ports are lim
 
 ### Installation
 
-<span style="color:red">Wire is still under development and not available on npm at this time.</span>
+Wire is still under development and not available on npm at this time.
 
 ### Examples
 
