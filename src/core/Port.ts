@@ -38,6 +38,12 @@ export abstract class Port<TValueType> {
     @observable private _value: TValueType;
 
     /**
+     * Optional validation function
+     * @param value {any} - Value to validate
+     */
+    public validate?(value: any): Boolean;
+
+    /**
      * Port Instance Constructor
      * @param node {Node} - The node the Port belongs to
      * @param props {PortProps} - Port Properties
@@ -69,6 +75,10 @@ export abstract class Port<TValueType> {
      */
     public set value(value: TValueType) {
         this._value = value;
+
+        if (!this.validate(value)) {
+            throw new Error('[VALIDATION ERROR] - Provided value is not assignable to port');
+        }
 
         if (this.type === PortType.INPUT) {
             this.node.compute && this.node.compute();

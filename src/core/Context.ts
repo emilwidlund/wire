@@ -64,7 +64,7 @@ export class Context {
         if (node instanceof Node && this.nodes.has(node.id)) {
             this.nodes.delete(node.id);
         } else {
-            throw new Error('Node Removal Failed - Node does not exist in context');
+            throw new Error('[NODE REMOVAL FAILED] - Node does not exist in context');
         }
     }
 
@@ -76,17 +76,21 @@ export class Context {
         const { fromPort, toPort } = connectionProps;
 
         if (fromPort.type !== PortType.OUTPUT) {
-            throw new Error('Connection Failed - fromPort must be of type OUTPUT');
+            throw new Error('[CONNECTION FAILED] - fromPort must be of type OUTPUT');
         } else if (toPort.type !== PortType.INPUT) {
-            throw new Error('Connection Failed - toPort must be of type INPUT');
+            throw new Error('[CONNECTION FAILED] - toPort must be of type INPUT');
         }
 
         if (toPort.isConnected) {
-            throw new Error('Connection Failed - toPort is already connected');
+            throw new Error('[CONNECTION FAILED] - toPort is already connected');
         }
 
         if (fromPort.node === toPort.node) {
-            throw new Error('Connection Failed - Ports must be on different nodes');
+            throw new Error('[CONNECTION FAILED] - Ports must be on different nodes');
+        }
+
+        if (toPort.validate && !toPort.validate(fromPort.value)) {
+            throw new Error('[CONNECTION FAILED] - fromPort value is not assignable to toPort');
         }
 
         const connection = new Connection(this, connectionProps);
@@ -106,7 +110,7 @@ export class Context {
         if (this.connections.has(connection.id)) {
             this.connections.delete(connection.id);
         } else {
-            throw new Error('Connection Removal Failed - Connection does not exist in context');
+            throw new Error('[CONNECTION REMOVAL FAILED] - Connection does not exist in context');
         }
     }
 
