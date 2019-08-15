@@ -2,18 +2,24 @@
 
 # Wire
 
-### What is Wire?
-
 Wire is a TypeScript framework designed to shuffle data in a blazing fast, reactive & unidirectional way.
 It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools.
 
-#### Nodes
+### Nodes
 
 Nodes are the most central entities in Wire. They are conceptually very similar to functions. A node consists of
 input ports (much like a function's arguments), output ports (much like a function's return value) and a set of lifecycle
 methods. The primary purpose of a Node is to process & digest data of different kinds.
 
-#### Connections
+#### Lifecycle Methods
+
+Nodes may define lifecycle methods that operates at certain points during a node's lifecycle:
+
+-   initilize(): Runs whenever the node is created.
+-   compute(): Runs when any input port's value is mutated. This is usually where you produce & populate values for your output ports.
+-   dispose(): Runs whenever the node is destroyed.
+
+### Connections
 
 Connections are links that transports values between nodes' input & output ports. Connections may only be constructed between
 output ports & input ports. Ports may also have validation functions that restricts connection compability between ports.

@@ -83,15 +83,15 @@ export abstract class Node {
     public compute?(): void;
 
     /**
-     * Cleanup function which runs before Node is destroyed
+     * Cleanup function which runs just before Node is destroyed
      */
-    public cleanup?(): void;
+    public dispose?(): void;
 
     /**
      * Destroys the Node
      */
     @action public destroy() {
-        this.cleanup && this.cleanup();
+        this.dispose && this.dispose();
 
         this.context.removeNode(this);
 
