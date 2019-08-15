@@ -32,7 +32,7 @@ export class AdditionNode extends Node {
                     defaultValue: 0
                 }
             }
-        });
+        } as NodeProps);
 
         super(context, props);
     }

@@ -61,6 +61,12 @@ export abstract class Port<TValueType> {
         this.defaultValue = props.defaultValue;
         this.value = props.value || props.defaultValue;
         this.data = props.data;
+
+        if (typeof props.validate === 'function') {
+            this.validate = props.validate;
+        } else if (typeof props.validate === 'string') {
+            this.validate = eval(props.validate);
+        }
     }
 
     /**
@@ -76,7 +82,7 @@ export abstract class Port<TValueType> {
     public set value(value: TValueType) {
         this._value = value;
 
-        if (!this.validate(value)) {
+        if (this.validate && !this.validate(value)) {
             throw new Error('[VALIDATION ERROR] - Provided value is not assignable to port');
         }
 
@@ -121,7 +127,8 @@ export abstract class Port<TValueType> {
             id: this.id,
             defaultValue: this.defaultValue,
             value: this.value,
-            data: serializeObject(this.data)
+            data: serializeObject(this.data),
+            validate: this.validate && this.validate.toString()
         };
     }
 }
@@ -159,8 +166,11 @@ export enum PortType {
 export type PortProps<TValueType> = {
     id?: string;
     defaultValue?: TValueType;
+    validate?: PortValidator | string;
     value?: TValueType;
     data?: PortData;
 };
 
 export type PortData = { [key: string]: any };
+
+export type PortValidator = (value: any) => boolean;
