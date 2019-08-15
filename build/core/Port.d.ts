@@ -26,6 +26,11 @@ export declare abstract class Port<TValueType> {
      */
     private _value;
     /**
+     * Optional validation function
+     * @param value {any} - Value to validate
+     */
+    validate?(value: any): Boolean;
+    /**
      * Port Instance Constructor
      * @param node {Node} - The node the Port belongs to
      * @param props {PortProps} - Port Properties
@@ -54,6 +59,7 @@ export declare abstract class Port<TValueType> {
         defaultValue: TValueType;
         value: TValueType;
         data: import("../helpers").UnkownObject;
+        validate: string;
     };
 }
 export declare class InputPort<TValueType> extends Port<TValueType> {
@@ -80,9 +86,11 @@ export declare enum PortType {
 export declare type PortProps<TValueType> = {
     id?: string;
     defaultValue?: TValueType;
+    validate?: PortValidator | string;
     value?: TValueType;
     data?: PortData;
 };
 export declare type PortData = {
     [key: string]: any;
 };
+export declare type PortValidator = (value: any) => boolean;

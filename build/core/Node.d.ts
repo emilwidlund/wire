@@ -45,9 +45,9 @@ export declare abstract class Node {
      */
     compute?(): void;
     /**
-     * Cleanup function which runs before Node is destroyed
+     * Cleanup function which runs just before Node is destroyed
      */
-    cleanup?(): void;
+    dispose?(): void;
     /**
      * Destroys the Node
      */
@@ -67,12 +67,14 @@ export declare abstract class Node {
             defaultValue: any;
             value: any;
             data: import("../helpers").UnkownObject;
+            validate: string;
         }[];
         outputPorts: {
             id: string;
             defaultValue: any;
             value: any;
             data: import("../helpers").UnkownObject;
+            validate: string;
         }[];
         data: import("../helpers").UnkownObject;
     };

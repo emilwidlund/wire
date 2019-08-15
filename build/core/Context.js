@@ -81,7 +81,7 @@ var Context = /** @class */ (function () {
             this.nodes.delete(node.id);
         }
         else {
-            throw new Error('Node Removal Failed - Node does not exist in context');
+            throw new Error('[NODE REMOVAL FAILED] - Node does not exist in context');
         }
     };
     /**
@@ -91,16 +91,19 @@ var Context = /** @class */ (function () {
     Context.prototype.createConnection = function (connectionProps) {
         var fromPort = connectionProps.fromPort, toPort = connectionProps.toPort;
         if (fromPort.type !== Port_1.PortType.OUTPUT) {
-            throw new Error('Connection Failed - fromPort must be of type OUTPUT');
+            throw new Error('[CONNECTION FAILED] - fromPort must be of type OUTPUT');
         }
         else if (toPort.type !== Port_1.PortType.INPUT) {
-            throw new Error('Connection Failed - toPort must be of type INPUT');
+            throw new Error('[CONNECTION FAILED] - toPort must be of type INPUT');
         }
         if (toPort.isConnected) {
-            throw new Error('Connection Failed - toPort is already connected');
+            throw new Error('[CONNECTION FAILED] - toPort is already connected');
         }
         if (fromPort.node === toPort.node) {
-            throw new Error('Connection Failed - Ports must be on different nodes');
+            throw new Error('[CONNECTION FAILED] - Ports must be on different nodes');
+        }
+        if (toPort.validate && !toPort.validate(fromPort.value)) {
+            throw new Error('[CONNECTION FAILED] - fromPort value is not assignable to toPort');
         }
         var connection = new Connection_1.Connection(this, connectionProps);
         if (connection) {
@@ -117,7 +120,7 @@ var Context = /** @class */ (function () {
             this.connections.delete(connection.id);
         }
         else {
-            throw new Error('Connection Removal Failed - Connection does not exist in context');
+            throw new Error('[CONNECTION REMOVAL FAILED] - Connection does not exist in context');
         }
     };
     /**

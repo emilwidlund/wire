@@ -55,12 +55,14 @@ export declare class Context {
                 defaultValue: any;
                 value: any;
                 data: import("../helpers").UnkownObject;
+                validate: string;
             }[];
             outputPorts: {
                 id: string;
                 defaultValue: any;
                 value: any;
                 data: import("../helpers").UnkownObject;
+                validate: string;
             }[];
             data: import("../helpers").UnkownObject;
         }[];

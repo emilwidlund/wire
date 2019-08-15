@@ -51,6 +51,12 @@ var Port = /** @class */ (function () {
         this.defaultValue = props.defaultValue;
         this.value = props.value || props.defaultValue;
         this.data = props.data;
+        if (typeof props.validate === 'function') {
+            this.validate = props.validate;
+        }
+        else if (typeof props.validate === 'string') {
+            this.validate = eval(props.validate);
+        }
     }
     Object.defineProperty(Port.prototype, "value", {
         /**
@@ -65,6 +71,9 @@ var Port = /** @class */ (function () {
         set: function (value) {
             var e_1, _a;
             this._value = value;
+            if (this.validate && !this.validate(value)) {
+                throw new Error('[VALIDATION ERROR] - Provided value is not assignable to port');
+            }
             if (this.type === PortType.INPUT) {
                 this.node.compute && this.node.compute();
             }
@@ -122,7 +131,8 @@ var Port = /** @class */ (function () {
             id: this.id,
             defaultValue: this.defaultValue,
             value: this.value,
-            data: helpers_1.serializeObject(this.data)
+            data: helpers_1.serializeObject(this.data),
+            validate: this.validate && this.validate.toString()
         };
     };
     __decorate([

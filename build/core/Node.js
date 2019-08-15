@@ -71,7 +71,7 @@ var Node = /** @class */ (function () {
      */
     Node.prototype.destroy = function () {
         var e_1, _a;
-        this.cleanup && this.cleanup();
+        this.dispose && this.dispose();
         this.context.removeNode(this);
         try {
             for (var _b = __values(this.connections), _c = _b.next(); !_c.done; _c = _b.next()) {
