@@ -2,7 +2,7 @@
 
 # Wire
 
-Wire is a framework written in TypeScript designed to shuffle data in a blazing fast, reactive & unidirectional way.
+Wire is a processing framework written in TypeScript designed to process data in a reactive & unidirectional way.
 It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools. Wire is powered by MobX which is a required, peer dependency.
 
 Wire is still under development and not yet considered released.
