@@ -7,7 +7,7 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 
 Wire is still under development and not yet considered released.
 
-![Visual Example](visual_example.png)
+![Visual Example](visual.png)
 
 ### Nodes
 
