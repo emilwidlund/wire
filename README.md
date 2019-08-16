@@ -7,6 +7,8 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 
 Wire is still under development and not yet considered released.
 
+![Visual Example](visual_example.png)
+
 ### Nodes
 
 Nodes are the most central entities in Wire. They are conceptually very similar to functions. A node consists of
@@ -26,10 +28,6 @@ Nodes may define lifecycle methods that operates at certain points during a node
 Connections are links that transports values between nodes' input & output ports. Connections may only be constructed between
 output ports & input ports. Ports may also have validation functions that restricts connection compability between ports.
 An output port may have multiple outgoing connections, while input ports are limited to 1 incoming connection.
-
-### Visual Example
-
-![Visual Example](visual_example.png)
 
 ### Installation
 
