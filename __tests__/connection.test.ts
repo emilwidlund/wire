@@ -45,4 +45,17 @@ describe('Connection', () => {
             nodeA.outputPorts.result.connect(nodeB.outputPorts.result);
         }).toThrow();
     });
+
+    test('Should throw error when connecting to an occupied input port', () => {
+        const ctx: Context = new Context();
+
+        const nodeA = new AdditionNode(ctx);
+        const nodeB = new AdditionNode(ctx);
+
+        nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+
+        expect(() => {
+            nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+        }).toThrow();
+    });
 });
