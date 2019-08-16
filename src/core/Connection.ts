@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, reaction, IReactionDisposer } from 'mobx';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort } from './Port';
@@ -27,6 +27,11 @@ export class Connection {
     @observable public context: Context;
 
     /**
+     * Reaction Disposer
+     */
+    private reactionDisposer: IReactionDisposer;
+
+    /**
      * Connection Instance Constructor
      */
     constructor(context: Context, props: ConnectionProps) {
@@ -41,6 +46,13 @@ export class Connection {
         this.toPort = props.toPort;
 
         this.toPort.value = this.fromPort.value;
+
+        this.reactionDisposer = reaction(
+            () => this.fromPort.value,
+            value => {
+                this.toPort.value = value;
+            }
+        );
     }
 
     /**
@@ -48,6 +60,8 @@ export class Connection {
      */
     @action public destroy() {
         this.context.removeConnection(this);
+
+        this.reactionDisposer();
 
         this.toPort.value = this.toPort.defaultValue;
     }

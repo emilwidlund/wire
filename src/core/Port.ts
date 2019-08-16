@@ -85,12 +85,6 @@ export abstract class Port<TValueType> {
         if (this.type === PortType.INPUT) {
             this.node.compute && this.node.compute();
         }
-
-        if (this.type === PortType.OUTPUT) {
-            for (const connection of this.connections) {
-                connection.toPort.value = value;
-            }
-        }
     }
 
     /**

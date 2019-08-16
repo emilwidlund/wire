@@ -58,4 +58,18 @@ describe('Connection', () => {
             nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
         }).toThrow();
     });
+
+    test('Should dispose connection reaction when destroyed', () => {
+        const ctx: Context = new Context();
+
+        const nodeA = new AdditionNode(ctx);
+        const nodeB = new AdditionNode(ctx);
+
+        const connection = nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+
+        connection.destroy();
+
+        nodeA.outputPorts.result.value = 100;
+        expect(nodeB.inputPorts.a.value).toBe(nodeB.inputPorts.a.defaultValue);
+    });
 });
