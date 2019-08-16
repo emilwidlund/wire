@@ -89,10 +89,6 @@ export class Context {
             throw new Error('[CONNECTION FAILED] - Ports must be on different nodes');
         }
 
-        if (toPort.validate && !toPort.validate(fromPort.value)) {
-            throw new Error('[CONNECTION FAILED] - fromPort value is not assignable to toPort');
-        }
-
         const connection = new Connection(this, connectionProps);
 
         if (connection) {

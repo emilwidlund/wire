@@ -82,10 +82,6 @@ export abstract class Port<TValueType> {
     public set value(value: TValueType) {
         this._value = value;
 
-        if (this.validate && !this.validate(value)) {
-            throw new Error('[VALIDATION ERROR] - Provided value is not assignable to port');
-        }
-
         if (this.type === PortType.INPUT) {
             this.node.compute && this.node.compute();
         }

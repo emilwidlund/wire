@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort } from './Port';
@@ -50,6 +50,14 @@ export class Connection {
         this.context.removeConnection(this);
 
         this.toPort.value = this.toPort.defaultValue;
+    }
+
+    /**
+     * Flag that determines if connection is valid
+     * A connection is considered valid if validator on toPort runs successfuly with fromPort's value
+     */
+    @computed public get isValid() {
+        return this.toPort.validate && this.toPort.validate(this.fromPort.value);
     }
 
     /**
