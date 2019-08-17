@@ -21,10 +21,12 @@ export class DivisionNode extends Node {
         _.defaultsDeep(props, {
             inputPorts: {
                 a: {
-                    defaultValue: 1
+                    defaultValue: 1,
+                    validate: (val: any) => _.isNumber(val)
                 },
                 b: {
-                    defaultValue: 1
+                    defaultValue: 1,
+                    validate: (val: any) => _.isNumber(val)
                 }
             },
             outputPorts: {

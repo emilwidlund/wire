@@ -21,10 +21,12 @@ export class ModuloNode extends Node {
         _.defaultsDeep(props, {
             inputPorts: {
                 a: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val)
                 },
                 b: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val)
                 }
             },
             outputPorts: {

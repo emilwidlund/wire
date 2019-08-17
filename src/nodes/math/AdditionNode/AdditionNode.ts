@@ -21,15 +21,18 @@ export class AdditionNode extends Node {
         _.defaultsDeep(props, {
             inputPorts: {
                 a: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val)
                 },
                 b: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val)
                 }
             },
             outputPorts: {
                 result: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val)
                 }
             }
         } as NodeProps);
