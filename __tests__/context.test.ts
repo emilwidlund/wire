@@ -1,5 +1,5 @@
 import { Context } from '../src/core';
-import { AdditionNode } from '../src/core/nodes';
+import { AdditionNode } from '../src/nodes';
 import { ObservableMap } from 'mobx';
 
 const contextHasEmptyNodesMap = (ctx: Context) => {

@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { Node, NodePortProps, NodeData } from './Node';
 import { Connection, ConnectionProps } from './Connection';
 import { PortType, OutputPort, InputPort } from './Port';
-import * as Nodes from './nodes';
+import * as Nodes from '../nodes';
 
 export class Context {
     /**

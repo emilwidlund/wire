@@ -1,21 +1,21 @@
 import * as _ from 'lodash';
 
-import { Node, NodeProps, NodeInputPorts, NodeOutputPorts } from '../../Node';
-import { InputPort, OutputPort } from '../../Port';
-import { Context } from '../../Context';
+import { Node, NodeProps, NodeInputPorts, NodeOutputPorts } from '../../../core/Node';
+import { InputPort, OutputPort } from '../../../core/Port';
+import { Context } from '../../../core/Context';
 
-export interface AdditionNodeInputPorts extends NodeInputPorts {
+export interface SubtractionNodeInputPorts extends NodeInputPorts {
     a: InputPort<number>;
     b: InputPort<number>;
 }
 
-export interface AdditionNodeOutputPorts extends NodeOutputPorts {
+export interface SubtractionNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
-export class AdditionNode extends Node {
-    inputPorts: AdditionNodeInputPorts;
-    outputPorts: AdditionNodeOutputPorts;
+export class SubtractionNode extends Node {
+    inputPorts: SubtractionNodeInputPorts;
+    outputPorts: SubtractionNodeOutputPorts;
 
     constructor(context: Context, props: NodeProps = {}) {
         _.defaultsDeep(props, {
@@ -39,7 +39,7 @@ export class AdditionNode extends Node {
 
     compute() {
         const values: number[] = Object.values(this.inputPorts).map(ip => ip.value);
-        const result: number = values.reduce((acc: number, val: number) => acc + val, 0);
+        const result: number = values.reduce((acc: number, val: number) => acc - val, 0);
 
         this.outputPorts.result.value = result;
     }
