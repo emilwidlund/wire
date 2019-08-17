@@ -3,7 +3,6 @@
         "target": "es5",
         "lib": ["es2017", "dom"],
         "noImplicitAny": true,
-        "module": "commonjs",
         "outDir": "build",
         "declaration": true,
         "moduleResolution": "node",
