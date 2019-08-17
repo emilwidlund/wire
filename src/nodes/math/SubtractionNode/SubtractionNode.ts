@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Node, NodeProps, NodeInputPorts, NodeOutputPorts } from '../../../core/Node';
 import { InputPort, OutputPort } from '../../../core/Port';
-import { Context } from '../../../core/Context/Context';
+import { Context } from '../../../core/Context';
 
 export interface SubtractionNodeInputPorts extends NodeInputPorts {
     a: InputPort<number>;

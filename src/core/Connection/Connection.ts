@@ -3,7 +3,7 @@ import { observable, action, computed, reaction, IReactionDisposer } from 'mobx'
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort } from '../Port';
-import { Context } from '../Context/Context';
+import { Context } from '../Context';
 
 export class Connection {
     /**

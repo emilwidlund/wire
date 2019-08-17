@@ -3,7 +3,7 @@ import { observable, action, computed } from 'mobx';
 import * as _ from 'lodash';
 
 import { InputPort, OutputPort, PortProps } from '../Port';
-import { Context } from '../Context/Context';
+import { Context } from '../Context';
 import { Connection } from '../Connection';
 import { serializeObject } from '../../helpers';
 
