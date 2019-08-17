@@ -115,19 +115,14 @@ const nodeB = new AdditionNode(context);
 
 nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
 
-// Serialize Context
-const object = context.serialize();
+// Serialize Context into localStorage
+const serializedContext = context.serialize();
+localStorage.setItem('wire_context', serializedContext);
 
-// Store Context
-const JSONContext = JSON.stringify(object);
-localStorage.setItem('wire_context', JSONContext);
-
-// Import Context from JSON
-const importedContextFromStorage = localStorage.getItem('wire_context');
-const importedContextObject = JSON.parse(importedContextFromStorage);
-
+// Retrieve Context from localStorage
+const serializedContextFromStorage = localStorage.getItem('wire_context');
 // In order for Wire to "rebuild" your custom nodes, you need to pass those node classes in an object when importing
-const importedContext = Context.import(importedContextObject, { CustomNodeA, CustomNodeB });
+const importedContext = Context.import(serializedContextFromStorage, { CustomNodeA, CustomNodeB });
 
 // The context is now successfully restored
 ```
