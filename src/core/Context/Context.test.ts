@@ -79,17 +79,15 @@ describe('New Context Instance', () => {
 });
 
 describe('Imported Context', () => {
-    let serializedContextObject: any;
+    let serializedContext: string;
+
     beforeAll(() => {
         const ctx = new Context();
-        const serializedContext = ctx.serialize();
-
-        const serializedContextJSON = JSON.stringify(serializedContext);
-        serializedContextObject = JSON.parse(serializedContextJSON);
+        serializedContext = ctx.serialize();
     });
 
     test('Should import context from JSON', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
 
         expect(ctx).toBeInstanceOf(Context);
 
@@ -100,27 +98,27 @@ describe('Imported Context', () => {
     });
 
     test('Should have an empty Map of Nodes', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
         contextHasEmptyNodesMap(ctx);
     });
 
     test('Should have an empty Map of Connections', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
         contextHasEmptyConnectionsMap(ctx);
     });
 
     test('Should create a Node and add it to the Nodes Map', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
         contextAddsNode(ctx);
     });
 
     test('Should add connections the Connections Map', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
         contextAddsConnection(ctx);
     });
 
     test('Should be serializable into JSON format', () => {
-        const ctx = Context.import(serializedContextObject);
+        const ctx = Context.import(serializedContext);
         contextSerializesToJSON(ctx);
     });
 });

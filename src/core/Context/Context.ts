@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { observable, action } from 'mobx';
+import * as serialize from 'serialize-javascript';
 import * as _ from 'lodash';
 
 import { Node, NodePortProps, NodeData } from '../Node';
@@ -111,22 +112,24 @@ export class Context {
     }
 
     /**
-     * Serializes Context
+     * Serializes Context to JSON
      */
     serialize() {
-        return {
+        return serialize({
             id: this.id,
             data: this.data,
             nodes: [...this.nodes.values()].map(node => node.serialize()),
             connections: [...this.connections.values()].map(connection => connection.serialize())
-        };
+        });
     }
 
     /**
      * Imports a serialized Context
-     * @param importableContext
+     * @param importableContextJSON {string} - Importable Context as JSON
      */
-    static import(importableContext: ImportableContext, customNodes: { [key: string]: any } = {}): Context {
+    static import(importableContextJSON: string, customNodes: { [key: string]: any } = {}): Context {
+        const importableContext: ImportableContext = eval(`(${importableContextJSON})`);
+
         const context = new this({
             id: importableContext.id
         });

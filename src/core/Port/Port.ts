@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 
 import { Node } from '../Node';
 import { Connection } from '../Connection';
-import { serializeObject } from '../../helpers';
 
 export abstract class Port<TValueType> {
     /**
@@ -117,8 +116,8 @@ export abstract class Port<TValueType> {
             id: this.id,
             defaultValue: this.defaultValue,
             value: this.value,
-            data: serializeObject(this.data),
-            validate: this.validate && this.validate.toString()
+            data: this.data,
+            validate: this.validate
         };
     }
 }

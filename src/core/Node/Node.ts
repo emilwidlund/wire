@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { InputPort, OutputPort, PortProps } from '../Port';
 import { Context } from '../Context';
 import { Connection } from '../Connection';
-import { serializeObject } from '../../helpers';
 
 export abstract class Node {
     /**
@@ -124,7 +123,7 @@ export abstract class Node {
             name: this.constructor.name,
             inputPorts: Object.values(this.inputPorts).map(ip => ip.serialize()),
             outputPorts: Object.values(this.outputPorts).map(op => op.serialize()),
-            data: serializeObject(this.data)
+            data: this.data
         };
     }
 }
