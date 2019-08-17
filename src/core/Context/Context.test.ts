@@ -121,4 +121,21 @@ describe('Imported Context', () => {
         const ctx = Context.import(serializedContext);
         contextSerializesToJSON(ctx);
     });
+
+    test('Should persist serialized functions', () => {
+        const ctx: Context = new Context();
+        const node = new AdditionNode(ctx);
+
+        node.data = {
+            testFunction: () => {
+                return 'Hello';
+            }
+        };
+
+        const _serializedContext = ctx.serialize();
+        const importedContext: Context = Context.import(_serializedContext);
+
+        expect(typeof importedContext.nodes.get(node.id).data.testFunction).toBe('function');
+        expect(importedContext.nodes.get(node.id).data.testFunction()).toBe('Hello');
+    });
 });
