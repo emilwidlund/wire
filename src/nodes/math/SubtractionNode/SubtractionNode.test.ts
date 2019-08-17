@@ -10,6 +10,6 @@ describe('Subtraction Node', () => {
         nodeA.inputPorts.a.value = 100;
         nodeA.inputPorts.b.value = 50;
 
-        expect(nodeA.outputPorts.result.value).toBe(50);
+        expect(nodeA.outputPorts.result.value).toBe(100 - 50);
     });
 });
