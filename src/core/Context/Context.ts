@@ -2,10 +2,10 @@ import { v4 as uuid } from 'uuid';
 import { observable, action } from 'mobx';
 import * as _ from 'lodash';
 
-import { Node, NodePortProps, NodeData } from './Node';
-import { Connection, ConnectionProps } from './Connection';
-import { PortType, OutputPort, InputPort } from './Port';
-import * as Nodes from '../nodes';
+import { Node, NodePortProps, NodeData } from '../Node';
+import { Connection, ConnectionProps } from '../Connection';
+import { PortType, OutputPort, InputPort } from '../Port';
+import * as Nodes from '../../nodes';
 
 export class Context {
     /**

@@ -2,9 +2,9 @@ import { v4 as uuid } from 'uuid';
 import { observable, action, computed } from 'mobx';
 import * as _ from 'lodash';
 
-import { Node } from './Node';
-import { Connection } from './Connection';
-import { serializeObject } from '../helpers';
+import { Node } from '../Node';
+import { Connection } from '../Connection';
+import { serializeObject } from '../../helpers';
 
 export abstract class Port<TValueType> {
     /**

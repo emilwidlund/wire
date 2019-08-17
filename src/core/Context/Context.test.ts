@@ -1,6 +1,7 @@
-import { Context } from '../src/core';
-import { AdditionNode } from '../src/nodes';
 import { ObservableMap } from 'mobx';
+
+import { Context } from '../Context';
+import { AdditionNode } from '../../nodes';
 
 const contextHasEmptyNodesMap = (ctx: Context) => {
     expect(ctx.nodes.size).toBe(0);

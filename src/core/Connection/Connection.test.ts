@@ -1,4 +1,6 @@
-import { Context, AdditionNode, Connection } from '../src/core';
+import { Context } from '../Context';
+import { Connection } from './Connection';
+import { AdditionNode } from '../../nodes';
 
 describe('Connection', () => {
     test('Should connect to compatible ports', () => {

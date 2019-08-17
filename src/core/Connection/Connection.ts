@@ -2,8 +2,8 @@ import { v4 as uuid } from 'uuid';
 import { observable, action, computed, reaction, IReactionDisposer } from 'mobx';
 import * as _ from 'lodash';
 
-import { InputPort, OutputPort } from './Port';
-import { Context } from './Context';
+import { InputPort, OutputPort } from '../Port';
+import { Context } from '../Context/Context';
 
 export class Connection {
     /**

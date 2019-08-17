@@ -1,5 +1,7 @@
-import { Context, InputPort, OutputPort, Connection } from '../src/core';
-import { AdditionNode } from '../src/nodes';
+import { Context } from '../Context';
+import { InputPort, OutputPort } from '../Port';
+import { Connection } from '../Connection';
+import { AdditionNode } from '../../nodes';
 
 describe('Node', () => {
     test('Should create a new instance', () => {
