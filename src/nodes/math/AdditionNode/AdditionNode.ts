@@ -39,7 +39,7 @@ export class AdditionNode extends Node {
 
     compute() {
         const values: number[] = Object.values(this.inputPorts).map(ip => ip.value);
-        const result: number = values.reduce((acc: number, val: number) => acc + val, 0);
+        const result: number = values.reduce((acc: number, val: number) => acc + val);
 
         this.outputPorts.result.value = result;
     }
