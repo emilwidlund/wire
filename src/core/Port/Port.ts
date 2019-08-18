@@ -63,8 +63,6 @@ export abstract class Port<TValueType> {
 
         if (typeof props.validate === 'function') {
             this.validate = props.validate;
-        } else if (typeof props.validate === 'string') {
-            this.validate = eval(props.validate);
         }
     }
 
