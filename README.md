@@ -1,4 +1,4 @@
-![Wire](banner.png)
+![Wire](https://github.com/emilwidlund/wire/raw/master/banner.png)
 
 # Wire
 
@@ -10,7 +10,7 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 
 Type Docs are available [here](https://emilwidlund.github.io/wire/).
 
-![Visual Example](visual.png)
+![Visual Example](https://github.com/emilwidlund/wire/raw/master/visual.png)
 
 ### Nodes
 
