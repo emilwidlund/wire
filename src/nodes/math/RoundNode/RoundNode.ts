@@ -12,6 +12,9 @@ export interface RoundNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Rounds the incoming value and assigns the result to the "result" output port
+ */
 export class RoundNode extends Node {
     inputPorts: RoundNodeInputPorts;
     outputPorts: RoundNodeOutputPorts;

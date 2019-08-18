@@ -12,6 +12,9 @@ export interface CosineNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Applies a cosine transformation to the incoming value and assigns the result to the "result" output port
+ */
 export class CosineNode extends Node {
     inputPorts: CosineNodeInputPorts;
     outputPorts: CosineNodeOutputPorts;

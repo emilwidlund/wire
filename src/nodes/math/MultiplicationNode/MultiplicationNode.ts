@@ -13,6 +13,9 @@ export interface MultiplicationNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Multiplies input values and assigns the result to the "result" output port
+ */
 export class MultiplicationNode extends Node {
     inputPorts: MultiplicationNodeInputPorts;
     outputPorts: MultiplicationNodeOutputPorts;

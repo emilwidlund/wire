@@ -12,6 +12,9 @@ export interface FloorNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Floors the incoming value and assigns the result to the "result" output port
+ */
 export class FloorNode extends Node {
     inputPorts: FloorNodeInputPorts;
     outputPorts: FloorNodeOutputPorts;

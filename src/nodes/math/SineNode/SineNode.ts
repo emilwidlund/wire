@@ -12,6 +12,9 @@ export interface SineNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Applies a sine transformation to the incoming value and assigns the result to the "result" output port
+ */
 export class SineNode extends Node {
     inputPorts: SineNodeInputPorts;
     outputPorts: SineNodeOutputPorts;

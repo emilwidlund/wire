@@ -13,6 +13,9 @@ export interface SubtractionNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Subtracts input values and assigns the result to the "result" output port
+ */
 export class SubtractionNode extends Node {
     inputPorts: SubtractionNodeInputPorts;
     outputPorts: SubtractionNodeOutputPorts;

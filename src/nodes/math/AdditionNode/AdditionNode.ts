@@ -13,6 +13,9 @@ export interface AdditionNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Adds input values and assigns the result to the "result" output port
+ */
 export class AdditionNode extends Node {
     inputPorts: AdditionNodeInputPorts;
     outputPorts: AdditionNodeOutputPorts;

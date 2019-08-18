@@ -13,6 +13,9 @@ export interface DivisionNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Divides input values and assigns the result to the "result" output port
+ */
 export class DivisionNode extends Node {
     inputPorts: DivisionNodeInputPorts;
     outputPorts: DivisionNodeOutputPorts;

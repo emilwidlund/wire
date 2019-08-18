@@ -13,6 +13,9 @@ export interface ModuloNodeOutputPorts extends NodeOutputPorts {
     result: OutputPort<number>;
 }
 
+/**
+ * Applies a modulo operator on the input values and assigns the result to the "result" output port
+ */
 export class ModuloNode extends Node {
     inputPorts: ModuloNodeInputPorts;
     outputPorts: ModuloNodeOutputPorts;
