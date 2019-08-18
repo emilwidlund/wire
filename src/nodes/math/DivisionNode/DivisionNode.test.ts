@@ -5,12 +5,12 @@ describe('Division Node', () => {
     test('Should compute values correctly', () => {
         const ctx: Context = new Context();
 
-        const nodeA = new DivisionNode(ctx);
+        const node = new DivisionNode(ctx);
 
-        nodeA.inputPorts.a.value = 200;
-        nodeA.inputPorts.b.value = 2;
+        node.inputPorts.a.value = 200;
+        node.inputPorts.b.value = 2;
 
-        expect(nodeA.outputPorts.result.value).toBe(200 / 2);
+        expect(node.outputPorts.result.value).toBe(200 / 2);
     });
 
     test('Should pass validation when given numbers as inputs', () => {

@@ -5,11 +5,11 @@ describe('Cosine Node', () => {
     test('Should compute values correctly', () => {
         const ctx: Context = new Context();
 
-        const nodeA = new CosineNode(ctx);
+        const node = new CosineNode(ctx);
 
-        nodeA.inputPorts.x.value = 100;
+        node.inputPorts.x.value = 100;
 
-        expect(nodeA.outputPorts.result.value).toBe(Math.cos(100));
+        expect(node.outputPorts.result.value).toBe(Math.cos(100));
     });
 
     test('Should pass validation when given numbers as input', () => {

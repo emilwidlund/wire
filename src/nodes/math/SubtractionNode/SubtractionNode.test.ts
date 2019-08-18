@@ -5,12 +5,12 @@ describe('Subtraction Node', () => {
     test('Should compute values correctly', () => {
         const ctx: Context = new Context();
 
-        const nodeA = new SubtractionNode(ctx);
+        const node = new SubtractionNode(ctx);
 
-        nodeA.inputPorts.a.value = 100;
-        nodeA.inputPorts.b.value = 50;
+        node.inputPorts.a.value = 100;
+        node.inputPorts.b.value = 50;
 
-        expect(nodeA.outputPorts.result.value).toBe(100 - 50);
+        expect(node.outputPorts.result.value).toBe(100 - 50);
     });
 
     test('Should pass validation when given numbers as inputs', () => {

@@ -5,12 +5,12 @@ describe('Modulo Node', () => {
     test('Should compute values correctly', () => {
         const ctx: Context = new Context();
 
-        const nodeA = new ModuloNode(ctx);
+        const node = new ModuloNode(ctx);
 
-        nodeA.inputPorts.a.value = 5;
-        nodeA.inputPorts.b.value = 7;
+        node.inputPorts.a.value = 5;
+        node.inputPorts.b.value = 7;
 
-        expect(nodeA.outputPorts.result.value).toBe(5 % 7);
+        expect(node.outputPorts.result.value).toBe(5 % 7);
     });
 
     test('Should pass validation when given numbers as inputs', () => {

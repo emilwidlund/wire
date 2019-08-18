@@ -5,12 +5,12 @@ describe('Multiplication Node', () => {
     test('Should compute values correctly', () => {
         const ctx: Context = new Context();
 
-        const nodeA = new MultiplicationNode(ctx);
+        const node = new MultiplicationNode(ctx);
 
-        nodeA.inputPorts.a.value = 100;
-        nodeA.inputPorts.b.value = 100;
+        node.inputPorts.a.value = 100;
+        node.inputPorts.b.value = 100;
 
-        expect(nodeA.outputPorts.result.value).toBe(100 * 100);
+        expect(node.outputPorts.result.value).toBe(100 * 100);
     });
 
     test('Should pass validation when given numbers as inputs', () => {
