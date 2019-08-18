@@ -1,0 +1,5 @@
+{
+    "theme": "minimal",
+    "mode": "file",
+    "exclude": ["node_modules", "src/**/*+(index|.test).ts"]
+}
