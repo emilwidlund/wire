@@ -2490,7 +2490,7 @@ img {
 <div class="container container-main">
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
-			<p><img src="banner.png" alt="Wire"></p>
+			<p><img src="https://github.com/emilwidlund/wire/raw/master/banner.png" alt="Wire"></p>
 			<a href="#wire" id="wire" style="color: inherit; text-decoration: none;">
 				<h1>Wire</h1>
 			</a>
@@ -2498,8 +2498,8 @@ img {
 			<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></p>
 			<p>Wire is a processing framework written in TypeScript designed to process data in a reactive &amp; unidirectional way.
 			It is primarily built to abstract data-flow in Node/Graph Editors &amp; Visual Programming tools. Wire is powered by MobX which is a required, peer dependency.</p>
-			<p>Wire is still under development and not yet considered released.</p>
-			<p><img src="visual.png" alt="Visual Example"></p>
+			<p>Type Docs are available <a href="https://emilwidlund.github.io/wire/">here</a>.</p>
+			<p><img src="https://github.com/emilwidlund/wire/raw/master/visual.png" alt="Visual Example"></p>
 			<a href="#nodes" id="nodes" style="color: inherit; text-decoration: none;">
 				<h3>Nodes</h3>
 			</a>
@@ -2511,9 +2511,9 @@ img {
 			</a>
 			<p>Nodes may define lifecycle methods that operates at certain points during a node&#39;s lifecycle:</p>
 			<ul>
-				<li>initialize(): Runs whenever the node is created.</li>
-				<li>compute(): Runs when any input port&#39;s value is mutated. This is usually where you produce &amp; populate values for your output ports.</li>
-				<li>dispose(): Runs whenever the node is destroyed.</li>
+				<li><strong>initialize</strong>: Runs whenever the node is created.</li>
+				<li><strong>compute</strong>: Runs when any input port&#39;s value is mutated. This is usually where you produce &amp; populate values for your output ports.</li>
+				<li><strong>dispose</strong>: Runs whenever the node is destroyed.</li>
 			</ul>
 			<a href="#connections" id="connections" style="color: inherit; text-decoration: none;">
 				<h3>Connections</h3>
@@ -2690,7 +2690,7 @@ localStorage.setItem(<span class="hljs-string">'wire_context'</span>, serialized
 				<div class="tsd-signature tsd-kind-icon">Node<wbr>Port<wbr>Props&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/8ec3176/src/core/Node/Node.ts#L138">core/Node/Node.ts:138</a></li>
+						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/ee4b159/src/core/Node/Node.ts#L138">core/Node/Node.ts:138</a></li>
 					</ul>
 				</aside>
 				<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2714,7 +2714,7 @@ localStorage.setItem(<span class="hljs-string">'wire_context'</span>, serialized
 				<div class="tsd-signature tsd-kind-icon">Port<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/8ec3176/src/core/Port/Port.ts#L161">core/Port/Port.ts:161</a></li>
+						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/ee4b159/src/core/Port/Port.ts#L161">core/Port/Port.ts:161</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -2732,7 +2732,7 @@ localStorage.setItem(<span class="hljs-string">'wire_context'</span>, serialized
 				<div class="tsd-signature tsd-kind-icon">Port<wbr>Props&lt;TValueType&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/8ec3176/src/core/Port/Port.ts#L153">core/Port/Port.ts:153</a></li>
+						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/ee4b159/src/core/Port/Port.ts#L153">core/Port/Port.ts:153</a></li>
 					</ul>
 				</aside>
 				<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2768,7 +2768,7 @@ localStorage.setItem(<span class="hljs-string">'wire_context'</span>, serialized
 				<div class="tsd-signature tsd-kind-icon">Port<wbr>Validator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/8ec3176/src/core/Port/Port.ts#L163">core/Port/Port.ts:163</a></li>
+						<li>Defined in <a href="https://github.com/emilwidlund/wire/blob/ee4b159/src/core/Port/Port.ts#L163">core/Port/Port.ts:163</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">

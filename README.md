@@ -8,7 +8,7 @@
 Wire is a processing framework written in TypeScript designed to process data in a reactive & unidirectional way.
 It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools. Wire is powered by MobX which is a required, peer dependency.
 
-Type Docs are available [here](https://emilwidlund.github.io/wire/).
+Learn more [here](https://emilwidlund.github.io/wire/).
 
 ![Visual Example](https://github.com/emilwidlund/wire/raw/master/visual.png)
 
