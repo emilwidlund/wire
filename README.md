@@ -36,6 +36,10 @@ An output port may have multiple outgoing connections, while input ports are lim
 
 Wire is still under development and not available on npm at this time.
 
+### API Documentation
+
+Coming soon.
+
 ### Examples
 
 #### Basic usage
