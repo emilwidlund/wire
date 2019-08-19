@@ -7,7 +7,7 @@
     "scripts": {
         "bootstrap": "lerna bootstrap",
         "test": "lerna exec npm run test",
-        "build": "npm run bootstrap && lerna exec npm run build"
+        "build": "lerna exec npm run build"
     },
     "repository": {
         "type": "git",
