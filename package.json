@@ -4,6 +4,11 @@
     "description": "Monorepo for all Wire artifacts",
     "author": "Emil Widlund",
     "main": "index.js",
+    "scripts": {
+        "bootstrap": "lerna bootstrap",
+        "test": "lerna exec npm run test",
+        "build": "npm run bootstrap && lerna exec npm run build"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/emilwidlund/wire.git"

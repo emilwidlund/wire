@@ -9,7 +9,6 @@
         "moduleResolution": "node",
         "jsx": "react"
     },
-    "files": [".ts", ".tsx"],
     "include": ["./src/**/*.tsx"],
     "exclude": ["node_modules", "build", "./src/**/*.test.ts"]
 }
