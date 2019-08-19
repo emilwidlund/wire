@@ -1,4 +1,4 @@
-![Wire](https://github.com/emilwidlund/wire/raw/master/artifacts/wire-core/banner.png)
+![Wire](https://github.com/emilwidlund/wire/raw/master/banner.png)
 
 # Wire
 
