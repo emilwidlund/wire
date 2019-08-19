@@ -13,3 +13,7 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 -   [Wire Core](artifacts/wire-core/README.md): The core processing framework
 -   [Wire UI](artifacts/wire-ui/README.md): A React-library with suitable UI components
 -   [Wire Editor](artifacts/wire-editor): An example of a visual node editor built with Wire
+
+### Contributions
+
+Wire is at the moment maintained by Emil Widlund, but will soon be opened up to anyone who wants to contribute.
