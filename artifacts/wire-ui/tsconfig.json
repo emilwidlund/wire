@@ -7,9 +7,9 @@
         "outDir": "build",
         "declaration": true,
         "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "downlevelIteration": true
+        "jsx": "react"
     },
-    "include": ["./src/**/*.ts"],
+    "files": [".ts", ".tsx"],
+    "include": ["./src/**/*.tsx"],
     "exclude": ["node_modules", "build", "./src/**/*.test.ts"]
 }
