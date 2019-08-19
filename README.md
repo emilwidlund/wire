@@ -5,8 +5,10 @@
 [![CircleCI](https://circleci.com/gh/emilwidlund/wire.svg?style=svg)](https://circleci.com/gh/emilwidlund/wire)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Wire is a processing framework written in TypeScript designed to process data in a reactive & unidirectional way.
-It is primarily built to abstract data-flow in Node/Graph Editors & Visual Programming tools. Wire is powered by MobX which is a required, peer dependency.
+Wire is a monorepo containing a set of libraries (artifacts) that makes it super easy to build blazing fast & reactive visual programming tools for the web.
+It offers a core data processing framework and a library with React-components that will get you started. Take a look at the underlying artifacts to learn more about Wire and its offerings.
+
+Wire is currently under development.
 
 ### Wire Monorepo Artifacts
 
@@ -16,4 +18,5 @@ It is primarily built to abstract data-flow in Node/Graph Editors & Visual Progr
 
 ### Contributions
 
-Wire is at the moment maintained by Emil Widlund, but will soon be opened up to anyone who wants to contribute.
+Wire is open for PR's to anyone who wants to contribute.
+If you find bugs, issues or ideas of improvement, let me know by opening an Issue.
