@@ -18,5 +18,5 @@ Wire is currently under development.
 
 ### Contributions
 
-Wire is open for PR's to anyone who wants to contribute.
+Contributions are more than welcome. Please let me know if you want to become a collaborator on this project.
 If you find bugs, issues or ideas of improvement, let me know by opening an Issue.
