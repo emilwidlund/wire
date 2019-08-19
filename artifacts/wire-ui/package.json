@@ -26,7 +26,11 @@
         "@types/react-dom": "^16.8.5",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
-        "wire-core": "^0.0.1"
+        "wire-core": "^0.0.1",
+        "@types/jest": "^24.0.17",
+        "jest": "^24.9.0",
+        "ts-jest": "^24.0.2",
+        "typescript": "^3.5.3"
     },
     "dependencies": {
         "react-draggable": "^3.3.2"

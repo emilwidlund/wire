@@ -19,7 +19,6 @@
         "@types/lodash": "^4.14.136",
         "@types/serialize-javascript": "^1.5.0",
         "@types/uuid": "^3.4.5",
-        "husky": "^3.0.3",
         "jest": "^24.9.0",
         "mobx": "^5.13.0",
         "ts-jest": "^24.0.2",
@@ -27,10 +26,5 @@
     },
     "peerDependencies": {
         "mobx": "^5.13.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run test"
-        }
     }
 }
