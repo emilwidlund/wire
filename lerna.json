@@ -1,4 +1,4 @@
 {
-    "packages": ["artifacts/wire-core"],
+    "packages": ["artifacts/wire-core", "artifacts/wire-ui"],
     "version": "0.0.1"
 }
