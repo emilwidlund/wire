@@ -21,12 +21,14 @@ jobs:
                       # fallback to using the latest cache if no exact match is found
                       - v1-dependencies-
 
-            - run: yarn install
+            - run: npm install
+            - run: lerna link
+            - run: lerna bootstrap
 
             - save_cache:
                   paths:
                       - node_modules
                   key: v1-dependencies-{{ checksum "package.json" }}
 
-            - run: yarn test
-            - run: yarn build
+            - run: npm run test
+            - run: npm run build

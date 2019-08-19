@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["es2015", "dom"],
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "outDir": "build",
+        "declaration": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "noEmit": true,
+        "baseUrl": "../",
+        "paths": {
+            "wire-nodes": ["wire-nodes/src/index.ts"]
+        }
+    },
+    "include": ["./src/**/*.ts"],
+    "exclude": ["node_modules", "build", "./src/**/*.test.ts"]
+}

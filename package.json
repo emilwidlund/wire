@@ -1,36 +1,27 @@
 {
     "name": "wire",
     "version": "0.0.1",
-    "main": "build/index.js",
+    "description": "Monorepo for all Wire artifacts",
     "author": "Emil Widlund",
-    "license": "MIT",
+    "main": "index.js",
     "scripts": {
-        "build": "tsc",
-        "test": "jest --verbose",
-        "docs": "typedoc --out docs ./src"
+        "test": "jest --verbose"
     },
-    "dependencies": {
-        "lodash": "^4.17.15",
-        "serialize-javascript": "^1.7.0",
-        "uuid": "^3.3.2"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emilwidlund/wire.git"
     },
+    "keywords": [],
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/emilwidlund/wire/issues"
+    },
+    "homepage": "https://github.com/emilwidlund/wire#readme",
     "devDependencies": {
         "@types/jest": "^24.0.17",
-        "@types/lodash": "^4.14.136",
-        "@types/serialize-javascript": "^1.5.0",
-        "@types/uuid": "^3.4.5",
-        "husky": "^3.0.3",
-        "jest": "^24.8.0",
-        "mobx": "^5.13.0",
+        "jest": "^24.9.0",
+        "lerna": "^3.14.1",
         "ts-jest": "^24.0.2",
         "typescript": "^3.5.3"
-    },
-    "peerDependencies": {
-        "mobx": "^5.13.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run test"
-        }
     }
 }

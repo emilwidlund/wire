@@ -1,0 +1,4 @@
+{
+    "packages": ["artifacts/wire-core"],
+    "version": "0.0.1"
+}
