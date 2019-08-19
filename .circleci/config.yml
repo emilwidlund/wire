@@ -22,8 +22,6 @@ jobs:
                       - v1-dependencies-
 
             - run: npm install
-            - run: lerna link
-            - run: lerna bootstrap
 
             - save_cache:
                   paths:
