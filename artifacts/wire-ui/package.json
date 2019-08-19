@@ -1,0 +1,29 @@
+{
+    "name": "wire-ui",
+    "version": "0.0.1",
+    "description": "A React package with components for Wire applications",
+    "author": "Emil Widlund <ewidlund@ea.com>",
+    "homepage": "https://github.com/emilwidlund/wire/tree/master/artifacts/wire-ui#readme",
+    "license": "MIT",
+    "main": "build/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emilwidlund/wire.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    },
+    "bugs": {
+        "url": "https://github.com/emilwidlund/wire/issues"
+    },
+    "peerDependencies": {
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0"
+    },
+    "devDependencies": {
+        "@types/react": "^16.9.2",
+        "@types/react-dom": "^16.8.5",
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0"
+    }
+}
