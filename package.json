@@ -4,9 +4,6 @@
     "description": "Monorepo for all Wire artifacts",
     "author": "Emil Widlund",
     "main": "index.js",
-    "scripts": {
-        "test": "jest --verbose"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/emilwidlund/wire.git"
