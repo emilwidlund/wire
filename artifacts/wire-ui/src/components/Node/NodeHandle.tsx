@@ -17,9 +17,9 @@ export const NodeHandle = observer(({ name }: INodeHandleProps) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
     container: {
-        paddingTop: 6,
-        paddingBottom: 6,
-        fontSize: 14,
-        textAlign: 'center'
+        padding: 6,
+        paddingLeft: 12,
+        paddingRight: 12,
+        borderBottom: '2px solid #0044ff'
     }
 };

@@ -26,10 +26,13 @@ const styles: { [key: string]: React.CSSProperties } = {
         display: 'flex',
         flexDirection: 'column',
         position: 'absolute',
-        width: 180,
+        width: 220,
         backgroundColor: '#111',
-        borderRadius: 8,
+        borderRadius: 10,
         overflow: 'hidden',
-        color: '#fff'
+        fontFamily: 'Inter',
+        fontSize: 12,
+        color: '#fff',
+        userSelect: 'none'
     }
 };

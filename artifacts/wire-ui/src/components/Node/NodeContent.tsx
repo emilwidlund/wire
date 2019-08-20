@@ -10,18 +10,19 @@ export const NodeContent = observer(({ node }: INodeContentProps) => {
     return (
         <div style={styles.content}>
             <NodePorts ports={node.inputPorts} />
-            <NodePorts ports={node.outputPorts} />
+            <NodePorts ports={node.outputPorts} outputs />
         </div>
     );
 });
 
 export interface INodePortsProps {
     ports: NodeInputPorts | NodeOutputPorts;
+    outputs?: boolean;
 }
 
-export const NodePorts = observer(({ ports }: INodePortsProps) => {
+export const NodePorts = observer(({ ports, outputs }: INodePortsProps) => {
     return (
-        <div className="ports">
+        <div style={{ ...styles.ports, ...{ alignItems: outputs ? 'flex-end' : null } }}>
             {Object.values(ports).map(p => (
                 <NodePort port={p} />
             ))}
@@ -35,15 +36,27 @@ export interface INodePortProps {
 
 export const NodePort = observer(({ port }: INodePortProps) => {
     return (
-        <div>
-            <span>{port.data.name}:</span>
-            <span>{port.value}</span>
+        <div style={styles.port}>
+            <span>
+                {port.data.name}: {port.value}
+            </span>
         </div>
     );
 });
 
 const styles: { [key: string]: React.CSSProperties } = {
     content: {
-        display: 'flex'
+        position: 'relative',
+        display: 'flex',
+        padding: 10
+    },
+    ports: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1
+    },
+    port: {
+        display: 'flex',
+        lineHeight: 1.6
     }
 };
