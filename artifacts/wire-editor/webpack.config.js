@@ -7,6 +7,10 @@ module.exports = {
         filename: 'bundle.js'
     },
     mode: 'development',
+    devServer: {
+        port: 3000,
+        contentBase: './dist'
+    },
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
     },
