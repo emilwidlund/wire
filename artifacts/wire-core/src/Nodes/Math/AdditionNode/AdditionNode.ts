@@ -42,7 +42,9 @@ export class AdditionNode extends Node {
                 result: {
                     defaultValue: 0,
                     validate: (val: any) => _.isNumber(val),
-                    name: 'Result'
+                    data: {
+                        name: 'Result'
+                    }
                 }
             },
             data: {

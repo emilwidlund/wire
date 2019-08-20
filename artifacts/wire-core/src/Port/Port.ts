@@ -69,7 +69,7 @@ export abstract class Port<TValueType> {
     /**
      * Gets the internal value
      */
-    public get value() {
+    @computed public get value() {
         return this._value;
     }
 

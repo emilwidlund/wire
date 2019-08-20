@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Context, AdditionNode } from 'wire-core';
 import { Node } from 'wire-ui';
+import { observer } from 'mobx-react-lite';
 
 export interface WireContext {
     context: Context;
@@ -18,24 +19,33 @@ export const App = () => {
     );
 };
 
-export const Canvas = () => {
+export const Canvas = observer(() => {
     const { context } = React.useContext(Wire);
 
-    const nodeA = new AdditionNode(context);
-    const nodeB = new AdditionNode(context);
+    React.useEffect(() => {
+        const nodeA = new AdditionNode(context);
+        const nodeB = new AdditionNode(context);
 
-    nodeA.inputPorts.a.value = 150;
-    nodeA.inputPorts.b.value = 500;
+        nodeA.inputPorts.a.value = 150;
+        nodeA.inputPorts.b.value = 500;
 
-    nodeB.inputPorts.b.value = 700;
+        nodeB.inputPorts.b.value = 700;
 
-    nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+        nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+
+        console.log(nodeA);
+
+        setInterval(() => {
+            nodeA.inputPorts.a.value += 10;
+        }, 500);
+    }, []);
 
     return (
         <div>
+            {context.nodes.size}
             {[...context.nodes.values()].map(node => (
                 <Node node={node} />
             ))}
         </div>
     );
-};
+});

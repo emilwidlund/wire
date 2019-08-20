@@ -19,6 +19,7 @@
     "homepage": "https://github.com/emilwidlund/wire#readme",
     "dependencies": {
         "mobx": "^5.13.0",
+        "mobx-react-lite": "^1.4.1",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "wire-core": "^0.0.1",
