@@ -1,5 +1,8 @@
 import * as _ from 'lodash';
-import { Context, Node, NodeProps, NodeOutputPorts, OutputPort } from '../../../';
+
+import { Context } from '../../../Context';
+import { Node, NodeProps, NodeInputPorts, NodeOutputPorts } from '../../../Node';
+import { InputPort, OutputPort } from '../../../Port';
 
 export interface PiNodeOutputPorts extends NodeOutputPorts {
     pi: OutputPort<number>;

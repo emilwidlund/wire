@@ -2,11 +2,15 @@ import * as React from 'react';
 import { Context, AdditionNode } from 'wire-core';
 import { Node } from 'wire-ui';
 
-const Wire = React.createContext(new Context());
+export interface WireContext {
+    context: Context;
+}
+
+const Wire = React.createContext({} as WireContext);
 
 export const App = () => {
     return (
-        <Wire.Provider value={null}>
+        <Wire.Provider value={{ context: new Context() }}>
             <div>
                 <Canvas />
             </div>
@@ -15,9 +19,17 @@ export const App = () => {
 };
 
 export const Canvas = () => {
-    const context = React.useContext(Wire);
+    const { context } = React.useContext(Wire);
 
-    new AdditionNode(context);
+    const nodeA = new AdditionNode(context);
+    const nodeB = new AdditionNode(context);
+
+    nodeA.inputPorts.a.value = 150;
+    nodeA.inputPorts.b.value = 500;
+
+    nodeB.inputPorts.b.value = 700;
+
+    nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
 
     return (
         <div>
