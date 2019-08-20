@@ -25,17 +25,26 @@ export class SubtractionNode extends Node {
             inputPorts: {
                 a: {
                     defaultValue: 0,
-                    validate: (val: any) => _.isNumber(val)
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'A'
+                    }
                 },
                 b: {
                     defaultValue: 0,
-                    validate: (val: any) => _.isNumber(val)
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'B'
+                    }
                 }
             },
             outputPorts: {
                 result: {
                     defaultValue: 0
                 }
+            },
+            data: {
+                name: 'Subtraction'
             }
         } as NodeProps);
 

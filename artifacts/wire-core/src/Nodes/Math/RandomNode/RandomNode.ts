@@ -19,8 +19,14 @@ export class RandomNode extends Node {
             outputPorts: {
                 random: {
                     defaultValue: 0,
-                    value: Math.random()
+                    value: Math.random(),
+                    data: {
+                        name: 'Random'
+                    }
                 }
+            },
+            data: {
+                name: 'Random'
             }
         } as NodeProps);
 

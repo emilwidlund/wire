@@ -18,8 +18,14 @@ export class PiNode extends Node {
         _.defaultsDeep(props, {
             outputPorts: {
                 pi: {
-                    defaultValue: Math.PI
+                    defaultValue: Math.PI,
+                    data: {
+                        name: 'PI'
+                    }
                 }
+            },
+            data: {
+                name: 'PI'
             }
         } as NodeProps);
 

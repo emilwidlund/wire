@@ -24,13 +24,22 @@ export class RoundNode extends Node {
             inputPorts: {
                 x: {
                     defaultValue: 0,
-                    validate: (val: any) => _.isNumber(val)
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'Round'
+                    }
                 }
             },
             outputPorts: {
                 result: {
-                    defaultValue: 0
+                    defaultValue: 0,
+                    data: {
+                        name: 'Result'
+                    }
                 }
+            },
+            data: {
+                name: 'Round'
             }
         } as NodeProps);
 

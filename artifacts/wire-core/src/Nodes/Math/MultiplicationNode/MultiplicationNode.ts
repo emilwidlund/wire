@@ -25,17 +25,29 @@ export class MultiplicationNode extends Node {
             inputPorts: {
                 a: {
                     defaultValue: 1,
-                    validate: (val: any) => _.isNumber(val)
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'A'
+                    }
                 },
                 b: {
                     defaultValue: 1,
-                    validate: (val: any) => _.isNumber(val)
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'B'
+                    }
                 }
             },
             outputPorts: {
                 result: {
-                    defaultValue: 1
+                    defaultValue: 1,
+                    data: {
+                        name: 'Result'
+                    }
                 }
+            },
+            data: {
+                name: 'Multiplication'
             }
         } as NodeProps);
 
