@@ -1,0 +1,35 @@
+{
+    "name": "wire-editor",
+    "version": "0.0.1",
+    "description": "An example of a node editor build with Wire",
+    "main": "build/index.js",
+    "scripts": {
+        "build": "webpack",
+        "test": "jest --verbose"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emilwidlund/wire.git"
+    },
+    "author": "Emil Widlund",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/emilwidlund/wire/issues"
+    },
+    "homepage": "https://github.com/emilwidlund/wire#readme",
+    "dependencies": {
+        "mobx": "^5.13.0",
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0",
+        "wire-core": "^0.0.1",
+        "wire-ui": "^0.0.1"
+    },
+    "devDependencies": {
+        "@types/react": "^16.9.2",
+        "@types/react-dom": "^16.9.0",
+        "awesome-typescript-loader": "^5.2.1",
+        "typescript": "^3.5.3",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7"
+    }
+}
