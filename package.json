@@ -5,7 +5,7 @@
     "author": "Emil Widlund",
     "main": "index.js",
     "scripts": {
-        "bootstrap": "lerna bootstrap",
+        "bootstrap": "lerna bootstrap --hoist",
         "test": "lerna exec npm run test",
         "build": "lerna exec npm run build"
     },
