@@ -30,7 +30,6 @@ const styles: { [key: string]: React.CSSProperties } = {
         backgroundColor: '#111',
         borderRadius: 10,
         overflow: 'hidden',
-        fontFamily: 'Inter',
         fontSize: 12,
         color: '#fff',
         userSelect: 'none'
