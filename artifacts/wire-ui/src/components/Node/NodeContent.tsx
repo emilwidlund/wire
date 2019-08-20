@@ -8,7 +8,7 @@ export interface INodeContentProps {
 
 export const NodeContent = observer(({ node }: INodeContentProps) => {
     return (
-        <div className="content">
+        <div style={styles.content}>
             <NodePorts ports={node.inputPorts} />
             <NodePorts ports={node.outputPorts} />
         </div>
@@ -36,8 +36,14 @@ export interface INodePortProps {
 export const NodePort = observer(({ port }: INodePortProps) => {
     return (
         <div>
-            <span>{port.data.name}</span>
+            <span>{port.data.name}:</span>
             <span>{port.value}</span>
         </div>
     );
 });
+
+const styles: { [key: string]: React.CSSProperties } = {
+    content: {
+        display: 'flex'
+    }
+};

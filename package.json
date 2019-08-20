@@ -7,7 +7,8 @@
     "scripts": {
         "bootstrap": "lerna bootstrap --hoist",
         "test": "lerna exec npm run test",
-        "build": "lerna exec npm run build"
+        "build": "lerna exec npm run build",
+        "dev": "lerna exec --parallel npm run dev"
     },
     "repository": {
         "type": "git",

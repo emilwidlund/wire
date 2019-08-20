@@ -13,10 +13,23 @@ export interface INodeProps {
 export const Node = observer(({ node }: INodeProps) => {
     return (
         <Draggable handle=".handle">
-            <div className="node">
+            <div style={styles.container}>
                 <NodeHandle name={node.data.name} />
                 <NodeContent node={node} />
             </div>
         </Draggable>
     );
 });
+
+const styles: { [key: string]: React.CSSProperties } = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        width: 180,
+        backgroundColor: '#111',
+        borderRadius: 8,
+        overflow: 'hidden',
+        color: '#fff'
+    }
+};

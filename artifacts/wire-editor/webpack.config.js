@@ -9,7 +9,8 @@ module.exports = {
     mode: 'development',
     devServer: {
         port: 3000,
-        contentBase: './dist'
+        contentBase: './dist',
+        hot: true
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js']
@@ -19,6 +20,10 @@ module.exports = {
             {
                 test: /\.ts|\.tsx$/,
                 loader: 'awesome-typescript-loader'
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     }
