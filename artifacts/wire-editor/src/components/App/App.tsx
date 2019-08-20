@@ -21,13 +21,7 @@ export const App = () => {
 export const Canvas = () => {
     const { context } = React.useContext(Wire);
 
-    const nodeA = new AdditionNode(context, {
-        inputPorts: { a: { data: { name: 'A' } }, b: { data: { name: 'B' } } },
-        outputPorts: { result: { data: { name: 'Output' } } },
-        data: {
-            name: 'Addition'
-        }
-    });
+    const nodeA = new AdditionNode(context);
     const nodeB = new AdditionNode(context);
 
     nodeA.inputPorts.a.value = 150;
