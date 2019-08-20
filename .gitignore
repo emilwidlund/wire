@@ -1,3 +1,4 @@
 **/node_modules/
 **/build/
 **/builds/
+.DS_STORE
