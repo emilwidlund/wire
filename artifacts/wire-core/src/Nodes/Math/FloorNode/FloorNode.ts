@@ -19,8 +19,8 @@ export class FloorNode extends Node {
     inputPorts: FloorNodeInputPorts;
     outputPorts: FloorNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             inputPorts: {
                 x: {
                     defaultValue: 0,
@@ -32,7 +32,7 @@ export class FloorNode extends Node {
                     defaultValue: 0
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }

@@ -19,8 +19,8 @@ export class CosineNode extends Node {
     inputPorts: CosineNodeInputPorts;
     outputPorts: CosineNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             inputPorts: {
                 x: {
                     defaultValue: 0,
@@ -32,7 +32,7 @@ export class CosineNode extends Node {
                     defaultValue: 0
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }

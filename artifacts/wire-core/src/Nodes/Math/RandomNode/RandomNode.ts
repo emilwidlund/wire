@@ -14,15 +14,15 @@ export interface RandomNodeOutputPorts extends NodeOutputPorts {
 export class RandomNode extends Node {
     outputPorts: RandomNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             outputPorts: {
                 random: {
                     defaultValue: 0,
                     value: Math.random()
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }

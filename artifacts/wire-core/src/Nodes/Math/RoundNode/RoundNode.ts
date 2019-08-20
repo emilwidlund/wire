@@ -19,8 +19,8 @@ export class RoundNode extends Node {
     inputPorts: RoundNodeInputPorts;
     outputPorts: RoundNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             inputPorts: {
                 x: {
                     defaultValue: 0,
@@ -32,7 +32,7 @@ export class RoundNode extends Node {
                     defaultValue: 0
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }

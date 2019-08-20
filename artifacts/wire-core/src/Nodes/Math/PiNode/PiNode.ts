@@ -14,14 +14,14 @@ export interface PiNodeOutputPorts extends NodeOutputPorts {
 export class PiNode extends Node {
     outputPorts: PiNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             outputPorts: {
                 pi: {
                     defaultValue: Math.PI
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }

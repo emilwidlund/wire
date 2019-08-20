@@ -19,8 +19,8 @@ export class SineNode extends Node {
     inputPorts: SineNodeInputPorts;
     outputPorts: SineNodeOutputPorts;
 
-    constructor(context: Context) {
-        const props: NodeProps = {
+    constructor(context: Context, props: NodeProps = {}) {
+        _.defaultsDeep(props, {
             inputPorts: {
                 x: {
                     defaultValue: 0,
@@ -32,7 +32,7 @@ export class SineNode extends Node {
                     defaultValue: 0
                 }
             }
-        };
+        } as NodeProps);
 
         super(context, props);
     }
