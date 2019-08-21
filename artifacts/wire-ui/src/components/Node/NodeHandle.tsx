@@ -7,7 +7,7 @@ export interface INodeHandleProps {
 
 export const NodeHandle = observer(({ name }: INodeHandleProps) => {
     return (
-        <div className="handle" style={styles.container}>
+        <div className="handle" style={styles.container()}>
             <div>
                 <span>{name}</span>
             </div>
@@ -15,11 +15,13 @@ export const NodeHandle = observer(({ name }: INodeHandleProps) => {
     );
 });
 
-const styles: { [key: string]: React.CSSProperties } = {
-    container: {
+const styles: {
+    container: () => React.CSSProperties;
+} = {
+    container: () => ({
         padding: 6,
         paddingLeft: 12,
         paddingRight: 12,
         borderBottom: '2px solid #0044ff'
-    }
+    })
 };
