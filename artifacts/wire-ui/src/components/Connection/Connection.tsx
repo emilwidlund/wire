@@ -15,36 +15,50 @@ export interface IConnectionProps {
     onClick?(): void;
 }
 
+const PORT_OFFSET_X = 10;
+const PORT_OFFSET_Y = 10;
+
 export const Connection = observer(({ fromPosition, toPosition, connection, onClick }: IConnectionProps) => {
     const [pathString, setPathString] = React.useState('');
-    const [sourcePos, setSourcePos] = React.useState({ x: 0, y: 0 });
-    const [targetPos, setTargetPos] = React.useState({ x: 0, y: 0 });
+    const [fromPos, setFromPos] = React.useState({ x: 0, y: 0 });
+    const [toPos, setToPos] = React.useState({ x: 0, y: 0 });
 
     React.useEffect(() => {
         if (fromPosition && toPosition) {
-            setSourcePos({
-                x: fromPosition.x + 14,
-                y: toPosition.y + 9
-            });
-            setTargetPos(toPosition);
+            const newFromPos = {
+                x: fromPosition.x + PORT_OFFSET_X,
+                y: toPosition.y + PORT_OFFSET_Y
+            };
 
-            setPathString(bezierCurve(sourcePos, targetPos));
+            setFromPos(newFromPos);
+            setToPos(toPosition);
+
+            setPathString(bezierCurve(newFromPos, toPos));
         } else if (connection) {
             const outputPortPosition = get(connection.fromPort.data, 'position');
             const inputPortPosition = get(connection.toPort.data, 'position');
 
-            setSourcePos({
-                x: outputPortPosition.x + 10,
-                y: outputPortPosition.y
-            });
-            setTargetPos({
-                x: inputPortPosition.x - 10,
-                y: inputPortPosition.y
-            });
+            const newFromPos = {
+                x: outputPortPosition.x + PORT_OFFSET_X,
+                y: outputPortPosition.y + PORT_OFFSET_Y
+            };
 
-            setPathString(bezierCurve(sourcePos, targetPos));
+            const newToPos = {
+                x: inputPortPosition.x - PORT_OFFSET_X,
+                y: inputPortPosition.y + PORT_OFFSET_Y
+            };
+
+            setFromPos(newFromPos);
+            setToPos(newToPos);
+
+            setPathString(bezierCurve(newFromPos, newToPos));
         }
-    });
+    }, [
+        fromPosition,
+        toPosition,
+        get(connection.fromPort.node.data, 'position'),
+        get(connection.toPort.node.data, 'position')
+    ]);
 
     return (
         <g>
@@ -58,14 +72,14 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
             />
             <path
                 className="port"
-                d={`M${sourcePos.x},${sourcePos.y},${sourcePos.x + 2},${sourcePos.y}`}
+                d={`M${fromPos.x},${fromPos.y},${fromPos.x + 2},${fromPos.y}`}
                 fill="none"
                 strokeWidth="10"
                 stroke="#0044ff"
             />
             <path
                 className="port"
-                d={`M${targetPos.x - 2},${targetPos.y},${targetPos.x},${targetPos.y}`}
+                d={`M${toPos.x - 2},${toPos.y},${toPos.x},${toPos.y}`}
                 fill="none"
                 strokeWidth="10"
                 stroke="#0044ff"

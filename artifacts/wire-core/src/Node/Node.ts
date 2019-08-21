@@ -118,11 +118,22 @@ export abstract class Node {
      * Serializes Node properties
      */
     serialize() {
+        const serializedInputPorts: { [key: string]: any } = {};
+        const serializedOutputPorts: { [key: string]: any } = {};
+
+        for (const ip in this.inputPorts) {
+            serializedInputPorts[ip] = this.inputPorts[ip].serialize();
+        }
+
+        for (const op in this.outputPorts) {
+            serializedOutputPorts[op] = this.outputPorts[op].serialize();
+        }
+
         return {
             id: this.id,
             name: this.constructor.name,
-            inputPorts: Object.values(this.inputPorts).map(ip => ip.serialize()),
-            outputPorts: Object.values(this.outputPorts).map(op => op.serialize()),
+            inputPorts: serializedInputPorts,
+            outputPorts: serializedOutputPorts,
             data: this.data
         };
     }

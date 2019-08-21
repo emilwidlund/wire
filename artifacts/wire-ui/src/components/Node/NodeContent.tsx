@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Node as _Node, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort, Port } from 'wire-core';
+import { Node as _Node, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort } from 'wire-core';
 import { observer } from 'mobx-react-lite';
 import { get, set } from 'mobx';
 
@@ -25,7 +25,7 @@ export const NodePorts = observer(({ ports, outputs }: INodePortsProps) => {
     return (
         <div style={styles.ports(outputs)}>
             {Object.values(ports).map(p => (
-                <NodePort port={p} />
+                <NodePort key={p.id} port={p} />
             ))}
         </div>
     );
@@ -80,7 +80,6 @@ const styles: {
     portName: () => React.CSSProperties;
 } = {
     content: () => ({
-        position: 'relative',
         display: 'flex',
         padding: 10
     }),
