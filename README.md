@@ -12,9 +12,9 @@ Wire is currently under development.
 
 ### Wire Monorepo Artifacts
 
--   [Wire Core](artifacts/wire-core/README.md): The core processing framework
--   [Wire UI](artifacts/wire-ui/README.md): A React-library with suitable UI components
--   [Wire Editor](artifacts/wire-editor/README.md): An example of a visual node editor built with Wire
+-   [Wire Core](artifacts/wire-core): The core processing framework
+-   [Wire UI](artifacts/wire-ui): A React-library with suitable UI components
+-   [Wire Editor](artifacts/wire-editor): An example of a visual node editor built with Wire
 
 ### Contributions
 
