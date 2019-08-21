@@ -60,6 +60,18 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
         get(connection.toPort.node.data, 'position')
     ]);
 
+    let strokeColor;
+
+    if (connection) {
+        if (!connection.isValid) {
+            strokeColor = '#ff4444';
+        } else {
+            strokeColor = '#444';
+        }
+    } else {
+        strokeColor = '#fff';
+    }
+
     return (
         <g>
             <path
@@ -67,7 +79,7 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
                 d={pathString}
                 fill="none"
                 strokeWidth="2"
-                stroke={!connection ? '#fff' : '#444'}
+                stroke={strokeColor}
                 onClick={onClick}
             />
             <path
