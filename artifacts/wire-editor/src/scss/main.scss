@@ -14,3 +14,6 @@ body {
         flex-direction: column;
     }
 }
+
+@import '../components/App/App';
+@import '../components/Canvas/Canvas';

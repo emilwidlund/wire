@@ -35,8 +35,8 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
 
             setPathString(bezierCurve(newFromPos, toPos));
         } else if (connection) {
-            const outputPortPosition = get(connection.fromPort.data, 'position');
-            const inputPortPosition = get(connection.toPort.data, 'position');
+            const outputPortPosition = get(connection.fromPort.data, 'position') || { x: 0, y: 0 };
+            const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };
 
             const newFromPos = {
                 x: outputPortPosition.x + PORT_OFFSET_X,
@@ -53,12 +53,7 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
 
             setPathString(bezierCurve(newFromPos, newToPos));
         }
-    }, [
-        fromPosition,
-        toPosition,
-        get(connection.fromPort.node.data, 'position'),
-        get(connection.toPort.node.data, 'position')
-    ]);
+    });
 
     let strokeColor;
 

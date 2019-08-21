@@ -38,6 +38,8 @@
         "wire-core": "^0.0.1"
     },
     "dependencies": {
+        "@material-ui/core": "^4.3.3",
+        "@material-ui/icons": "^4.2.1",
         "react-draggable": "^3.3.2"
     }
 }

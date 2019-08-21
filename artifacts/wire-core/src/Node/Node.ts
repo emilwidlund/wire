@@ -103,15 +103,9 @@ export abstract class Node {
      * All connections associated to the Node
      */
     @computed public get connections(): Connection[] {
-        let portConnections: Connection[] = [];
-
-        this.context.connections.forEach(connection => {
-            if (connection.fromPort.node.id === this.id || connection.toPort.node.id === this.id) {
-                portConnections.push(connection);
-            }
+        return [...this.context.connections.values()].filter(connection => {
+            return connection.fromPort.node.id === this.id || connection.toPort.node.id === this.id;
         });
-
-        return portConnections;
     }
 
     /**

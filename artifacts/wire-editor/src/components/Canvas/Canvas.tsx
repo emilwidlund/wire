@@ -9,18 +9,18 @@ interface ConnectionsProps {
 
 export const Canvas = observer(({ context }: ConnectionsProps) => {
     React.useEffect(() => {
-        // const nodeA = new AdditionNode(context, { data: { position: { x: 0, y: 0 } } });
-        // const nodeB = new AdditionNode(context, { data: { position: { x: 0, y: 0 } } });
+        const nodeA = new AdditionNode(context);
+        const nodeB = new AdditionNode(context);
 
-        // nodeA.inputPorts.a.value = 150;
-        // nodeA.inputPorts.b.value = 500;
+        nodeA.inputPorts.a.value = 150;
+        nodeA.inputPorts.b.value = 500;
 
-        // nodeB.inputPorts.b.value = 700;
+        nodeB.inputPorts.b.value = 700;
 
-        // nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
+        nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
 
         setInterval(() => {
-            [...context.nodes.values()][0].inputPorts.a.value += 10;
+            nodeA.inputPorts.a.value += 10;
         }, 500);
 
         setInterval(() => {
@@ -29,7 +29,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
     }, []);
 
     return (
-        <div>
+        <div id="canvas">
             {[...context.nodes.values()].map(node => (
                 <Node key={node.id} node={node} />
             ))}

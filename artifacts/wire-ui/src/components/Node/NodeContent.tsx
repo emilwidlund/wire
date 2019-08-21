@@ -10,21 +10,33 @@ export interface INodeContentProps {
 export const NodeContent = observer(({ node }: INodeContentProps) => {
     return (
         <div style={styles.content()}>
-            <NodePorts ports={node.inputPorts} />
-            <NodePorts ports={node.outputPorts} outputs />
+            <NodePorts ports={node.inputPorts} collapsed={get(node.data, 'collapsed')} />
+            <NodePorts ports={node.outputPorts} collapsed={get(node.data, 'collapsed')} outputs />
         </div>
     );
 });
 
 export interface INodePortsProps {
     ports: NodeInputPorts | NodeOutputPorts;
+    collapsed: boolean;
     outputs?: boolean;
 }
 
-export const NodePorts = observer(({ ports, outputs }: INodePortsProps) => {
+export const NodePorts = observer(({ ports, collapsed, outputs }: INodePortsProps) => {
+    const [portsToRender, setPortsToRender] = React.useState([]);
+
+    React.useEffect(() => {
+        if (collapsed) {
+            const portsWithConnections = Object.values(ports).filter(p => p.isConnected);
+            setPortsToRender(portsWithConnections);
+        } else {
+            setPortsToRender(Object.values(ports));
+        }
+    }, [ports, collapsed]);
+
     return (
         <div style={styles.ports(outputs)}>
-            {Object.values(ports).map(p => (
+            {portsToRender.map(p => (
                 <NodePort key={p.id} port={p} />
             ))}
         </div>
@@ -64,7 +76,7 @@ export const NodePort = observer(({ port }: INodePortProps) => {
     return (
         <div ref={ref} style={styles.port()}>
             {port instanceof InputPort && <div style={styles.portConnector(port)} />}
-            <span style={styles.portName()}>
+            <span style={styles.portName(port)}>
                 {port.data.name}: {port.value}
             </span>
             {port instanceof OutputPort && <div style={styles.portConnector(port)} />}
@@ -77,7 +89,7 @@ const styles: {
     ports: (outputs: boolean) => React.CSSProperties;
     port: () => React.CSSProperties;
     portConnector: (port: InputPort<any> | OutputPort<any>) => React.CSSProperties;
-    portName: () => React.CSSProperties;
+    portName: (port: InputPort<any> | OutputPort<any>) => React.CSSProperties;
 } = {
     content: () => ({
         display: 'flex',
@@ -99,9 +111,10 @@ const styles: {
         borderRadius: 3,
         backgroundColor: port.isConnected ? '#0044ff' : 'rgba(255, 255, 255, .2)'
     }),
-    portName: () => ({
+    portName: (port: InputPort<any> | OutputPort<any>) => ({
         lineHeight: 1.6,
         marginLeft: 8,
-        marginRight: 8
+        marginRight: 8,
+        opacity: port.isConnected ? 1 : 0.5
     })
 };
