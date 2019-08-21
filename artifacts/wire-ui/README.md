@@ -2,6 +2,8 @@
 
 Wire UI is a package of React components, built to visualize Nodes & Connections in Wire Editors.
 
+![Wire](https://github.com/emilwidlund/wire/raw/master/visual.png)
+
 ### Available Components
 
 #### Node
