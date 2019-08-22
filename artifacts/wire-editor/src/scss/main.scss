@@ -11,7 +11,11 @@ body {
     }
 
     #app {
-        flex-direction: column;
+        display: flex;
+
+        & > div {
+            flex: 1;
+        }
     }
 }
 

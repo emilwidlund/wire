@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Draggable from 'react-draggable';
+import Draggable, { DraggableBounds } from 'react-draggable';
 import useOnClickOutside from 'use-onclickoutside';
 import { Node as _Node, InputPort, OutputPort } from 'wire-core';
 import { observer } from 'mobx-react-lite';
@@ -14,6 +14,7 @@ import './Node.scss';
 export interface INodeProps {
     node: _Node;
     selected?: boolean;
+    bounds?: DraggableBounds;
     onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onClickOutside?(e: MouseEvent): void;
@@ -23,6 +24,7 @@ export const Node = observer(
     ({
         node,
         selected,
+        bounds,
         onPortMouseDown,
         onPortMouseUp,
         onClickOutside,
@@ -35,6 +37,7 @@ export const Node = observer(
         return (
             <Draggable
                 handle=".node-handle"
+                bounds={bounds}
                 defaultPosition={{
                     x: node.data.position ? node.data.position.x : 0,
                     y: node.data.position ? node.data.position.y : 0

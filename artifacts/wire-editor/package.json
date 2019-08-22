@@ -23,6 +23,7 @@
         "mobx-react-lite": "^1.4.1",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
+        "three": "^0.107.0",
         "wire-core": "^0.0.1",
         "wire-ui": "^0.0.1"
     },
