@@ -21,8 +21,7 @@
     "peerDependencies": {
         "mobx": "^5.13.0",
         "mobx-react-lite": "^1.4.1",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0"
+        "react": "^16.9.0"
     },
     "devDependencies": {
         "@types/classnames": "^2.2.9",
