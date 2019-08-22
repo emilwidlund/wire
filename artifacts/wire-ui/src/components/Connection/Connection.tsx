@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { get, autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { Connection as _Connection } from 'wire-core';
+import { Connection as _Connection, OutputPort } from 'wire-core';
 
 export interface Position {
     x: number;
@@ -9,7 +9,7 @@ export interface Position {
 }
 
 export interface IConnectionProps {
-    fromPosition?: Position;
+    fromPort?: OutputPort<any>;
     toPosition?: Position;
     connection?: _Connection;
     onClick?(): void;
@@ -21,23 +21,23 @@ const INPUT_PORT_OFFSET_Y = 10;
 const OUTPUT_PORT_OFFSET_X = 12;
 const OUTPUT_PORT_OFFSET_Y = 10;
 
-export const Connection = observer(({ fromPosition, toPosition, connection, onClick }: IConnectionProps) => {
+export const Connection = observer(({ fromPort, toPosition, connection, onClick }: IConnectionProps) => {
     const [pathString, setPathString] = React.useState('');
     const [fromPos, setFromPos] = React.useState({ x: 0, y: 0 });
     const [toPos, setToPos] = React.useState({ x: 0, y: 0 });
 
     React.useEffect(() => {
         return autorun(() => {
-            if (fromPosition && toPosition) {
+            if (fromPort && toPosition) {
                 const newFromPos = {
-                    x: fromPosition.x + OUTPUT_PORT_OFFSET_X,
-                    y: toPosition.y + OUTPUT_PORT_OFFSET_Y
+                    x: get(fromPort.data, 'position').x + OUTPUT_PORT_OFFSET_X,
+                    y: get(fromPort.data, 'position').y + OUTPUT_PORT_OFFSET_Y
                 };
 
                 setFromPos(newFromPos);
                 setToPos(toPosition);
 
-                setPathString(bezierCurve(newFromPos, toPos));
+                setPathString(bezierCurve(newFromPos, toPosition));
             } else if (connection) {
                 const outputPortPosition = get(connection.fromPort.data, 'position') || { x: 0, y: 0 };
                 const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };

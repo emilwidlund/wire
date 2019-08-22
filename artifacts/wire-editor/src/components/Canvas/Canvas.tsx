@@ -61,12 +61,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
                     return <Connection key={c.id} connection={c} onClick={() => c.destroy()} />;
                 })}
 
-                {mouseDownPort ? (
-                    <Connection
-                        fromPosition={get(mouseDownPort.node.data, 'position')}
-                        toPosition={{ x: 300, y: 600 }}
-                    />
-                ) : null}
+                {mouseDownPort ? <Connection fromPort={mouseDownPort} toPosition={{ x: 300, y: 600 }} /> : null}
             </svg>
         </div>
     );
