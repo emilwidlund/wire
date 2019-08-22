@@ -27,7 +27,7 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
     const [toPos, setToPos] = React.useState({ x: 0, y: 0 });
 
     React.useEffect(() => {
-        autorun(() => {
+        return autorun(() => {
             if (fromPosition && toPosition) {
                 const newFromPos = {
                     x: fromPosition.x + OUTPUT_PORT_OFFSET_X,
