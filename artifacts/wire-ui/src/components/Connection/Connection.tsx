@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { get } from 'mobx';
+import { get, autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { Connection as _Connection } from 'wire-core';
 
@@ -27,36 +27,38 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
     const [toPos, setToPos] = React.useState({ x: 0, y: 0 });
 
     React.useEffect(() => {
-        if (fromPosition && toPosition) {
-            const newFromPos = {
-                x: fromPosition.x + OUTPUT_PORT_OFFSET_X,
-                y: toPosition.y + OUTPUT_PORT_OFFSET_Y
-            };
+        autorun(() => {
+            if (fromPosition && toPosition) {
+                const newFromPos = {
+                    x: fromPosition.x + OUTPUT_PORT_OFFSET_X,
+                    y: toPosition.y + OUTPUT_PORT_OFFSET_Y
+                };
 
-            setFromPos(newFromPos);
-            setToPos(toPosition);
+                setFromPos(newFromPos);
+                setToPos(toPosition);
 
-            setPathString(bezierCurve(newFromPos, toPos));
-        } else if (connection) {
-            const outputPortPosition = get(connection.fromPort.data, 'position') || { x: 0, y: 0 };
-            const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };
+                setPathString(bezierCurve(newFromPos, toPos));
+            } else if (connection) {
+                const outputPortPosition = get(connection.fromPort.data, 'position') || { x: 0, y: 0 };
+                const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };
 
-            const newFromPos = {
-                x: outputPortPosition.x + OUTPUT_PORT_OFFSET_X,
-                y: outputPortPosition.y + OUTPUT_PORT_OFFSET_Y
-            };
+                const newFromPos = {
+                    x: outputPortPosition.x + OUTPUT_PORT_OFFSET_X,
+                    y: outputPortPosition.y + OUTPUT_PORT_OFFSET_Y
+                };
 
-            const newToPos = {
-                x: inputPortPosition.x - INPUT_PORT_OFFSET_X,
-                y: inputPortPosition.y + INPUT_PORT_OFFSET_Y
-            };
+                const newToPos = {
+                    x: inputPortPosition.x - INPUT_PORT_OFFSET_X,
+                    y: inputPortPosition.y + INPUT_PORT_OFFSET_Y
+                };
 
-            setFromPos(newFromPos);
-            setToPos(newToPos);
+                setFromPos(newFromPos);
+                setToPos(newToPos);
 
-            setPathString(bezierCurve(newFromPos, newToPos));
-        }
-    });
+                setPathString(bezierCurve(newFromPos, newToPos));
+            }
+        });
+    }, []);
 
     let strokeColor;
 

@@ -103,7 +103,7 @@ export abstract class Node {
      * All connections associated to the Node
      */
     @computed public get connections(): Connection[] {
-        return [...this.context.connections.values()].filter(connection => {
+        return Array.from(this.context.connections.values()).filter(connection => {
             return connection.fromPort.node.id === this.id || connection.toPort.node.id === this.id;
         });
     }

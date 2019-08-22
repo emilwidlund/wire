@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
-import { AdditionNode, Connection as _Connection, Context } from 'wire-core';
+import { get } from 'mobx';
+import { AdditionNode, Connection as _Connection, Context, InputPort, OutputPort } from 'wire-core';
 import { Node, Connection } from 'wire-ui';
 
 interface ConnectionsProps {
@@ -8,6 +9,8 @@ interface ConnectionsProps {
 }
 
 export const Canvas = observer(({ context }: ConnectionsProps) => {
+    const [mouseDownPort, setMouseDownPort] = React.useState<OutputPort<any>>(null);
+
     React.useEffect(() => {
         const nodeA = new AdditionNode(context);
         const nodeB = new AdditionNode(context);
@@ -29,15 +32,38 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
     }, []);
 
     return (
-        <div id="canvas">
-            {[...context.nodes.values()].map(node => (
-                <Node key={node.id} node={node} selected={false} />
+        <div
+            id="canvas"
+            onMouseUp={() => {
+                setMouseDownPort(null);
+            }}
+        >
+            {Array.from(context.nodes.values()).map(node => (
+                <Node
+                    key={node.id}
+                    node={node}
+                    selected={false}
+                    onPortMouseDown={(e, port) => {
+                        if (port instanceof OutputPort) {
+                            setMouseDownPort(port);
+                        }
+                    }}
+                    onPortMouseUp={(e, port) => {
+                        if (mouseDownPort && port instanceof InputPort) {
+                            mouseDownPort.connect(port);
+                        }
+                    }}
+                />
             ))}
 
             <svg className="connections" width="100%" height="100%">
-                {[...context.connections.values()].map((c: _Connection) => {
+                {Array.from(context.connections.values()).map((c: _Connection) => {
                     return <Connection key={c.id} connection={c} onClick={() => c.destroy()} />;
                 })}
+
+                {mouseDownPort ? (
+                    <Connection fromPosition={get(mouseDownPort.data, 'position')} toPosition={{ x: 300, y: 600 }} />
+                ) : null}
             </svg>
         </div>
     );

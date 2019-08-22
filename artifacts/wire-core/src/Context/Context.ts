@@ -118,8 +118,8 @@ export class Context {
         return serialize({
             id: this.id,
             data: this.data,
-            nodes: [...this.nodes.values()].map(node => node.serialize()),
-            connections: [...this.connections.values()].map(connection => connection.serialize())
+            nodes: Array.from(this.nodes.values()).map(node => node.serialize()),
+            connections: Array.from(this.connections.values()).map(connection => connection.serialize())
         });
     }
 

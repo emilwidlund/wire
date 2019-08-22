@@ -6,13 +6,26 @@ import classnames from 'classnames';
 
 export interface INodeContentProps {
     node: _Node;
+    onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
+    onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
 }
 
-export const NodeContent = observer(({ node }: INodeContentProps) => {
+export const NodeContent = observer(({ node, onPortMouseDown, onPortMouseUp }: INodeContentProps) => {
     return (
         <div className="node-content">
-            <NodePorts ports={node.inputPorts} collapsed={get(node.data, 'collapsed')} />
-            <NodePorts ports={node.outputPorts} collapsed={get(node.data, 'collapsed')} outputs />
+            <NodePorts
+                ports={node.inputPorts}
+                collapsed={get(node.data, 'collapsed')}
+                onPortMouseDown={onPortMouseDown}
+                onPortMouseUp={onPortMouseUp}
+            />
+            <NodePorts
+                ports={node.outputPorts}
+                collapsed={get(node.data, 'collapsed')}
+                onPortMouseDown={onPortMouseDown}
+                onPortMouseUp={onPortMouseUp}
+                outputs
+            />
         </div>
     );
 });
@@ -21,9 +34,11 @@ export interface INodePortsProps {
     ports: NodeInputPorts | NodeOutputPorts;
     collapsed: boolean;
     outputs?: boolean;
+    onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
+    onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
 }
 
-export const NodePorts = observer(({ ports, collapsed, outputs }: INodePortsProps) => {
+export const NodePorts = observer(({ ports, collapsed, outputs, onPortMouseDown, onPortMouseUp }: INodePortsProps) => {
     const [portsToRender, setPortsToRender] = React.useState([]);
 
     React.useEffect(() => {
@@ -38,7 +53,7 @@ export const NodePorts = observer(({ ports, collapsed, outputs }: INodePortsProp
     return (
         <div className={classnames(['ports', outputs && 'outputs'])}>
             {portsToRender.map(p => (
-                <NodePort key={p.id} port={p} />
+                <NodePort key={p.id} port={p} onPortMouseDown={onPortMouseDown} onPortMouseUp={onPortMouseUp} />
             ))}
         </div>
     );
@@ -46,9 +61,11 @@ export const NodePorts = observer(({ ports, collapsed, outputs }: INodePortsProp
 
 export interface INodePortProps {
     port: InputPort<any> | OutputPort<any>;
+    onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
+    onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
 }
 
-export const NodePort = observer(({ port }: INodePortProps) => {
+export const NodePort = observer(({ port, onPortMouseDown, onPortMouseUp }: INodePortProps) => {
     const ref = React.useRef<HTMLDivElement>();
 
     React.useEffect(() => {
@@ -75,7 +92,12 @@ export const NodePort = observer(({ port }: INodePortProps) => {
     ]);
 
     return (
-        <div ref={ref} className={classnames(['port', port.isConnected && 'connected'])}>
+        <div
+            ref={ref}
+            className={classnames(['port', port.isConnected && 'connected'])}
+            onMouseDown={e => onPortMouseDown(e, port)}
+            onMouseUp={e => onPortMouseUp(e, port)}
+        >
             {port instanceof InputPort && <div className="connector" />}
             <span className="name">
                 {port.data.name}: {port.value}
