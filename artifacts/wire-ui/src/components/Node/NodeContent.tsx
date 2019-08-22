@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Node as _Node, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort } from 'wire-core';
 import { observer } from 'mobx-react-lite';
-import { get, set } from 'mobx';
+import { get, set, autorun } from 'mobx';
 import classnames from 'classnames';
 
 export interface INodeContentProps {
@@ -15,13 +15,13 @@ export const NodeContent = observer(({ node, onPortMouseDown, onPortMouseUp }: I
         <div className="node-content">
             <NodePorts
                 ports={node.inputPorts}
-                collapsed={get(node.data, 'collapsed')}
+                node={node}
                 onPortMouseDown={onPortMouseDown}
                 onPortMouseUp={onPortMouseUp}
             />
             <NodePorts
                 ports={node.outputPorts}
-                collapsed={get(node.data, 'collapsed')}
+                node={node}
                 onPortMouseDown={onPortMouseDown}
                 onPortMouseUp={onPortMouseUp}
                 outputs
@@ -32,23 +32,25 @@ export const NodeContent = observer(({ node, onPortMouseDown, onPortMouseUp }: I
 
 export interface INodePortsProps {
     ports: NodeInputPorts | NodeOutputPorts;
-    collapsed: boolean;
+    node: _Node;
     outputs?: boolean;
     onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
 }
 
-export const NodePorts = observer(({ ports, collapsed, outputs, onPortMouseDown, onPortMouseUp }: INodePortsProps) => {
+export const NodePorts = observer(({ ports, node, outputs, onPortMouseDown, onPortMouseUp }: INodePortsProps) => {
     const [portsToRender, setPortsToRender] = React.useState([]);
 
     React.useEffect(() => {
-        if (collapsed) {
-            const portsWithConnections = Object.values(ports).filter(p => p.isConnected);
-            setPortsToRender(portsWithConnections);
-        } else {
-            setPortsToRender(Object.values(ports));
-        }
-    }, [ports, collapsed]);
+        return autorun(() => {
+            if (get(node.data, 'collapsed')) {
+                const portsWithConnections = Object.values(ports).filter(p => p.isConnected);
+                setPortsToRender(portsWithConnections);
+            } else {
+                setPortsToRender(Object.values(ports));
+            }
+        });
+    }, []);
 
     return (
         <div className={classnames(['ports', outputs && 'outputs'])}>

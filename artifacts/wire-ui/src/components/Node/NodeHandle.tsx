@@ -27,7 +27,7 @@ export const NodeHandle = observer(({ node, selected }: INodeHandleProps) => {
                             fontSize="inherit"
                         />
                     }
-                    onClick={() => set(node.data, 'collapsed', !get(node.data, 'collapsed'))}
+                    onClick={() => set(node.data, 'collapsed', !node.data.collapsed)}
                 />
                 <NodeAction children={<Close fontSize="inherit" />} onClick={() => node.destroy()} />
             </div>

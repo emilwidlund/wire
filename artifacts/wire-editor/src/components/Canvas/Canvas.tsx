@@ -22,9 +22,9 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
 
         nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
 
-        setInterval(() => {
-            nodeA.inputPorts.a.value += 10;
-        }, 500);
+        // setInterval(() => {
+        //     nodeA.inputPorts.a.value += 10;
+        // }, 500);
 
         setInterval(() => {
             localStorage.setItem('wire_context', context.serialize());
@@ -62,7 +62,10 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
                 })}
 
                 {mouseDownPort ? (
-                    <Connection fromPosition={get(mouseDownPort.data, 'position')} toPosition={{ x: 300, y: 600 }} />
+                    <Connection
+                        fromPosition={get(mouseDownPort.node.data, 'position')}
+                        toPosition={{ x: 300, y: 600 }}
+                    />
                 ) : null}
             </svg>
         </div>
