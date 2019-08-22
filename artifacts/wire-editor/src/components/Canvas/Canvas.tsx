@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
-import { get } from 'mobx';
 import { AdditionNode, Connection as _Connection, Context, InputPort, OutputPort } from 'wire-core';
 import { Node, Connection } from 'wire-ui';
+
+import { useMousePosition } from '../../hooks/useMousePosition';
 
 interface ConnectionsProps {
     context: Context;
 }
 
 export const Canvas = observer(({ context }: ConnectionsProps) => {
+    const canvasRef = React.useRef<HTMLDivElement>();
     const [mouseDownPort, setMouseDownPort] = React.useState<OutputPort<any>>(null);
+
+    const mousePosition = useMousePosition(canvasRef);
 
     React.useEffect(() => {
         const nodeA = new AdditionNode(context);
@@ -33,6 +37,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
 
     return (
         <div
+            ref={canvasRef}
             id="canvas"
             onMouseUp={() => {
                 setMouseDownPort(null);
@@ -61,7 +66,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
                     return <Connection key={c.id} connection={c} onClick={() => c.destroy()} />;
                 })}
 
-                {mouseDownPort ? <Connection fromPort={mouseDownPort} toPosition={{ x: 300, y: 600 }} /> : null}
+                {mouseDownPort ? <Connection fromPort={mouseDownPort} toPosition={mousePosition} /> : null}
             </svg>
         </div>
     );

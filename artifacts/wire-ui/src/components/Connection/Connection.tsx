@@ -28,17 +28,7 @@ export const Connection = observer(({ fromPort, toPosition, connection, onClick 
 
     React.useEffect(() => {
         return autorun(() => {
-            if (fromPort && toPosition) {
-                const newFromPos = {
-                    x: get(fromPort.data, 'position').x + OUTPUT_PORT_OFFSET_X,
-                    y: get(fromPort.data, 'position').y + OUTPUT_PORT_OFFSET_Y
-                };
-
-                setFromPos(newFromPos);
-                setToPos(toPosition);
-
-                setPathString(bezierCurve(newFromPos, toPosition));
-            } else if (connection) {
+            if (connection) {
                 const outputPortPosition = get(connection.fromPort.data, 'position') || { x: 0, y: 0 };
                 const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };
 
@@ -59,6 +49,20 @@ export const Connection = observer(({ fromPort, toPosition, connection, onClick 
             }
         });
     }, []);
+
+    React.useEffect(() => {
+        if (fromPort && toPosition) {
+            const newFromPos = {
+                x: get(fromPort.data, 'position').x + OUTPUT_PORT_OFFSET_X,
+                y: get(fromPort.data, 'position').y + OUTPUT_PORT_OFFSET_Y
+            };
+
+            setFromPos(newFromPos);
+            setToPos(toPosition);
+
+            setPathString(bezierCurve(newFromPos, toPosition));
+        }
+    }, [toPosition]);
 
     let strokeColor;
 
