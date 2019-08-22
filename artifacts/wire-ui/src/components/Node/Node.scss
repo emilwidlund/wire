@@ -1,0 +1,16 @@
+.node {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 220px;
+    background-color: #000;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    font-size: 12px;
+    color: #fff;
+    user-select: none;
+
+    @import './NodeHandle';
+    @import './NodeContent';
+}

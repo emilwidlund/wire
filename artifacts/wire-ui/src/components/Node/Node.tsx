@@ -8,6 +8,8 @@ import { NodeHandle } from './NodeHandle';
 import { NodeWindow } from './NodeWindow';
 import { NodeContent } from './NodeContent';
 
+import './Node.scss';
+
 export interface INodeProps {
     node: _Node;
     selected?: boolean;
@@ -16,7 +18,7 @@ export interface INodeProps {
 export const Node = observer(({ node, selected, children }: React.PropsWithChildren<INodeProps>) => {
     return (
         <Draggable
-            handle=".handle"
+            handle=".node-handle"
             defaultPosition={{
                 x: node.data.position ? node.data.position.x : 0,
                 y: node.data.position ? node.data.position.y : 0
@@ -28,7 +30,7 @@ export const Node = observer(({ node, selected, children }: React.PropsWithChild
                 });
             }}
         >
-            <div style={styles.container()}>
+            <div className="node">
                 <NodeHandle node={node} selected={selected} />
                 <NodeWindow children={children} />
                 <NodeContent node={node} />
@@ -36,21 +38,3 @@ export const Node = observer(({ node, selected, children }: React.PropsWithChild
         </Draggable>
     );
 });
-
-const styles: {
-    container: () => React.CSSProperties;
-} = {
-    container: () => ({
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'absolute',
-        width: 220,
-        backgroundColor: '#000',
-        borderRadius: 10,
-        border: '1px solid rgba(255, 255, 255, .1)',
-        overflow: 'hidden',
-        fontSize: 12,
-        color: '#fff',
-        userSelect: 'none'
-    })
-};

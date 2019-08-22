@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Node as _Node, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort } from 'wire-core';
 import { observer } from 'mobx-react-lite';
 import { get, set } from 'mobx';
+import classnames from 'classnames';
 
 export interface INodeContentProps {
     node: _Node;
@@ -9,7 +10,7 @@ export interface INodeContentProps {
 
 export const NodeContent = observer(({ node }: INodeContentProps) => {
     return (
-        <div style={styles.content()}>
+        <div className="node-content">
             <NodePorts ports={node.inputPorts} collapsed={get(node.data, 'collapsed')} />
             <NodePorts ports={node.outputPorts} collapsed={get(node.data, 'collapsed')} outputs />
         </div>
@@ -35,7 +36,7 @@ export const NodePorts = observer(({ ports, collapsed, outputs }: INodePortsProp
     }, [ports, collapsed]);
 
     return (
-        <div style={styles.ports(outputs)}>
+        <div className={classnames(['ports', outputs && 'outputs'])}>
             {portsToRender.map(p => (
                 <NodePort key={p.id} port={p} />
             ))}
@@ -74,47 +75,12 @@ export const NodePort = observer(({ port }: INodePortProps) => {
     ]);
 
     return (
-        <div ref={ref} style={styles.port()}>
-            {port instanceof InputPort && <div style={styles.portConnector(port)} />}
-            <span style={styles.portName(port)}>
+        <div ref={ref} className={classnames(['port', port.isConnected && 'connected'])}>
+            {port instanceof InputPort && <div className="connector" />}
+            <span className="name">
                 {port.data.name}: {port.value}
             </span>
-            {port instanceof OutputPort && <div style={styles.portConnector(port)} />}
+            {port instanceof OutputPort && <div className="connector" />}
         </div>
     );
 });
-
-const styles: {
-    content: () => React.CSSProperties;
-    ports: (outputs: boolean) => React.CSSProperties;
-    port: () => React.CSSProperties;
-    portConnector: (port: InputPort<any> | OutputPort<any>) => React.CSSProperties;
-    portName: (port: InputPort<any> | OutputPort<any>) => React.CSSProperties;
-} = {
-    content: () => ({
-        display: 'flex',
-        padding: 10
-    }),
-    ports: (outputs: boolean) => ({
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        alignItems: outputs ? 'flex-end' : null
-    }),
-    port: () => ({
-        display: 'flex',
-        alignItems: 'center'
-    }),
-    portConnector: (port: InputPort<any> | OutputPort<any>) => ({
-        width: 6,
-        height: 6,
-        borderRadius: 3,
-        backgroundColor: port.isConnected ? '#0044ff' : 'rgba(255, 255, 255, .2)'
-    }),
-    portName: (port: InputPort<any> | OutputPort<any>) => ({
-        lineHeight: 1.6,
-        marginLeft: 8,
-        marginRight: 8,
-        opacity: port.isConnected ? 1 : 0.5
-    })
-};

@@ -1,0 +1,43 @@
+.node-content {
+    display: flex;
+    padding: 10px;
+
+    .ports {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        &.outputs {
+            align-items: flex-end;
+        }
+
+        .port {
+            display: flex;
+            align-items: center;
+
+            &.connected {
+                .connector {
+                    background-color: #0044ff;
+                }
+
+                .name {
+                    color: #fff;
+                }
+            }
+
+            .connector {
+                width: 6px;
+                height: 6px;
+                border-radius: 3px;
+                background-color: rgba(255, 255, 255, 0.4);
+            }
+
+            .name {
+                line-height: 1.6em;
+                margin-left: 8px;
+                margin-right: 8px;
+                color: rgba(255, 255, 255, 0.4);
+            }
+        }
+    }
+}

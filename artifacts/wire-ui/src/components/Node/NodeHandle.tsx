@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Close, UnfoldLess } from '@material-ui/icons';
 import { Node as _Node } from 'wire-core';
 import { get, set } from 'mobx';
+import classnames from 'classnames';
 
 export interface INodeHandleProps {
     node: _Node;
@@ -11,17 +12,17 @@ export interface INodeHandleProps {
 
 export const NodeHandle = observer(({ node, selected }: INodeHandleProps) => {
     return (
-        <div className="handle" style={styles.container(selected)}>
-            <div style={styles.name(selected)}>
+        <div className={classnames(['node-handle', selected && 'selected'])}>
+            <div className="name">
                 <span>{get(node.data, 'name')}</span>
             </div>
-            <div style={styles.actions()}>
+            <div className="actions">
                 <NodeAction
                     children={
                         <UnfoldLess
                             style={{
                                 marginRight: 4,
-                                color: get(node.data, 'collapsed') ? '#fff' : 'rgba(255, 255, 255, .33)'
+                                color: get(node.data, 'collapsed') ? '#fff' : 'rgba(255, 255, 255, .4)'
                             }}
                             fontSize="inherit"
                         />
@@ -41,29 +42,3 @@ export interface INodeActionsProps {
 export const NodeAction = observer(({ children, onClick }: React.PropsWithChildren<INodeActionsProps>) => {
     return <div onClick={onClick}>{children}</div>;
 });
-
-const styles: {
-    container: (selected: boolean) => React.CSSProperties;
-    name: (selected: boolean) => React.CSSProperties;
-    actions: () => React.CSSProperties;
-} = {
-    container: (selected: boolean) => ({
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 8,
-        paddingLeft: 12,
-        paddingRight: 12,
-        borderBottom: selected ? '2px solid #0044ff' : '2px solid rgba(255, 255, 255, .2)'
-    }),
-    name: (selected: boolean) => ({
-        flexGrow: 1,
-        opacity: selected ? 1 : 0.4
-    }),
-    actions: () => ({
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        fontSize: 14
-    })
-};
