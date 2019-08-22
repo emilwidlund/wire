@@ -14,8 +14,19 @@
         .port {
             display: flex;
             align-items: center;
+            cursor: pointer;
 
             &.connected {
+                .connector {
+                    background-color: #0044ff;
+                }
+
+                .name {
+                    color: #fff;
+                }
+            }
+
+            &:hover {
                 .connector {
                     background-color: #0044ff;
                 }
@@ -30,6 +41,10 @@
                 height: 6px;
                 border-radius: 3px;
                 background-color: rgba(255, 255, 255, 0.4);
+                transition: background-color 0.15s ease;
+                -o-transition: background-color 0.15s ease;
+                -moz-transition: background-color 0.15s ease;
+                -webkit-transition: background-color 0.15s ease;
             }
 
             .name {
@@ -37,6 +52,10 @@
                 margin-left: 8px;
                 margin-right: 8px;
                 color: rgba(255, 255, 255, 0.4);
+                transition: color 0.15s ease;
+                -o-transition: color 0.15s ease;
+                -moz-transition: color 0.15s ease;
+                -webkit-transition: color 0.15s ease;
             }
         }
     }

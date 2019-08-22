@@ -20,5 +20,17 @@
         flex-direction: row;
         align-items: center;
         font-size: 14px;
+
+        div {
+            opacity: 1;
+            transition: opacity 0.15s ease;
+            -o-transition: opacity 0.15s ease;
+            -moz-transition: opacity 0.15s ease;
+            -webkit-transition: opacity 0.15s ease;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
     }
 }

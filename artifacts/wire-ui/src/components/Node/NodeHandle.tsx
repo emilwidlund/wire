@@ -21,7 +21,7 @@ export const NodeHandle = observer(({ node, selected }: INodeHandleProps) => {
                     children={
                         <UnfoldLess
                             style={{
-                                marginRight: 4,
+                                marginRight: 6,
                                 color: get(node.data, 'collapsed') ? '#fff' : 'rgba(255, 255, 255, .4)'
                             }}
                             fontSize="inherit"
