@@ -13,8 +13,10 @@ import './Node.scss';
 
 export interface INodeProps {
     node: _Node;
+    disabled?: boolean;
     selected?: boolean;
     bounds?: DraggableBounds;
+    onMouseDown?(e: MouseEvent): void;
     onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onClickOutside?(e: MouseEvent): void;
@@ -23,8 +25,10 @@ export interface INodeProps {
 export const Node = observer(
     ({
         node,
+        disabled,
         selected,
         bounds,
+        onMouseDown,
         onPortMouseDown,
         onPortMouseUp,
         onClickOutside,
@@ -48,6 +52,8 @@ export const Node = observer(
                         y: ui.y
                     });
                 }}
+                onMouseDown={onMouseDown}
+                disabled={disabled}
             >
                 <div ref={nodeRef} className="node">
                     <NodeHandle node={node} selected={selected} />
