@@ -48,6 +48,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
                     key={node.id}
                     node={node}
                     selected={false}
+                    onClickOutside={() => console.log('outside')}
                     onPortMouseDown={(e, port) => {
                         if (port instanceof OutputPort) {
                             setMouseDownPort(port);
