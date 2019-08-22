@@ -22,9 +22,9 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
 
         nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
 
-        // setInterval(() => {
-        //     nodeA.inputPorts.a.value += 10;
-        // }, 500);
+        setInterval(() => {
+            nodeA.inputPorts.a.value += 10;
+        }, 500);
 
         setInterval(() => {
             localStorage.setItem('wire_context', context.serialize());
