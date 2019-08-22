@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
-import { AdditionNode, Connection as _Connection, Context, InputPort, OutputPort } from 'wire-core';
+import { Connection as _Connection, Context, InputPort, OutputPort } from 'wire-core';
 import { Node, Connection } from 'wire-ui';
 
 import { useMousePosition } from '../../hooks/useMousePosition';
@@ -14,26 +14,6 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
     const [mouseDownPort, setMouseDownPort] = React.useState<OutputPort<any>>(null);
 
     const mousePosition = useMousePosition(canvasRef);
-
-    React.useEffect(() => {
-        const nodeA = new AdditionNode(context);
-        const nodeB = new AdditionNode(context);
-
-        nodeA.inputPorts.a.value = 150;
-        nodeA.inputPorts.b.value = 500;
-
-        nodeB.inputPorts.b.value = 700;
-
-        nodeA.outputPorts.result.connect(nodeB.inputPorts.a);
-
-        setInterval(() => {
-            nodeA.inputPorts.a.value += 10;
-        }, 500);
-
-        setInterval(() => {
-            localStorage.setItem('wire_context', context.serialize());
-        }, 2000);
-    }, []);
 
     return (
         <div

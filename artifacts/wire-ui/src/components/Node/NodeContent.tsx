@@ -3,6 +3,7 @@ import { Node as _Node, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort }
 import { observer } from 'mobx-react-lite';
 import { get, set, autorun } from 'mobx';
 import classnames from 'classnames';
+import * as _ from 'lodash';
 
 export interface INodeContentProps {
     node: _Node;
@@ -102,7 +103,7 @@ export const NodePort = observer(({ port, onPortMouseDown, onPortMouseUp }: INod
         >
             {port instanceof InputPort && <div className="connector" />}
             <span className="name">
-                {port.data.name}: {port.value}
+                {port.data.name}: {_.round(port.value, 1)}
             </span>
             {port instanceof OutputPort && <div className="connector" />}
         </div>
