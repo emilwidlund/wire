@@ -15,8 +15,11 @@ export interface IConnectionProps {
     onClick?(): void;
 }
 
-const PORT_OFFSET_X = 10;
-const PORT_OFFSET_Y = 10;
+const INPUT_PORT_OFFSET_X = 10;
+const INPUT_PORT_OFFSET_Y = 10;
+
+const OUTPUT_PORT_OFFSET_X = 12;
+const OUTPUT_PORT_OFFSET_Y = 10;
 
 export const Connection = observer(({ fromPosition, toPosition, connection, onClick }: IConnectionProps) => {
     const [pathString, setPathString] = React.useState('');
@@ -26,8 +29,8 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
     React.useEffect(() => {
         if (fromPosition && toPosition) {
             const newFromPos = {
-                x: fromPosition.x + PORT_OFFSET_X,
-                y: toPosition.y + PORT_OFFSET_Y
+                x: fromPosition.x + OUTPUT_PORT_OFFSET_X,
+                y: toPosition.y + OUTPUT_PORT_OFFSET_Y
             };
 
             setFromPos(newFromPos);
@@ -39,13 +42,13 @@ export const Connection = observer(({ fromPosition, toPosition, connection, onCl
             const inputPortPosition = get(connection.toPort.data, 'position') || { x: 0, y: 0 };
 
             const newFromPos = {
-                x: outputPortPosition.x + PORT_OFFSET_X,
-                y: outputPortPosition.y + PORT_OFFSET_Y
+                x: outputPortPosition.x + OUTPUT_PORT_OFFSET_X,
+                y: outputPortPosition.y + OUTPUT_PORT_OFFSET_Y
             };
 
             const newToPos = {
-                x: inputPortPosition.x - PORT_OFFSET_X,
-                y: inputPortPosition.y + PORT_OFFSET_Y
+                x: inputPortPosition.x - INPUT_PORT_OFFSET_X,
+                y: inputPortPosition.y + INPUT_PORT_OFFSET_Y
             };
 
             setFromPos(newFromPos);

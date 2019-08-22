@@ -5,13 +5,15 @@ import { observer } from 'mobx-react-lite';
 import { set } from 'mobx';
 
 import { NodeHandle } from './NodeHandle';
+import { NodeWindow } from './NodeWindow';
 import { NodeContent } from './NodeContent';
 
 export interface INodeProps {
     node: _Node;
+    selected?: boolean;
 }
 
-export const Node = observer(({ node }: INodeProps) => {
+export const Node = observer(({ node, selected, children }: React.PropsWithChildren<INodeProps>) => {
     return (
         <Draggable
             handle=".handle"
@@ -27,7 +29,8 @@ export const Node = observer(({ node }: INodeProps) => {
             }}
         >
             <div style={styles.container()}>
-                <NodeHandle node={node} />
+                <NodeHandle node={node} selected={selected} />
+                <NodeWindow children={children} />
                 <NodeContent node={node} />
             </div>
         </Draggable>
@@ -44,6 +47,7 @@ const styles: {
         width: 220,
         backgroundColor: '#000',
         borderRadius: 10,
+        border: '1px solid rgba(255, 255, 255, .1)',
         overflow: 'hidden',
         fontSize: 12,
         color: '#fff',

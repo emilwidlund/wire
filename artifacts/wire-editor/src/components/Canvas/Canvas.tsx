@@ -31,7 +31,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
     return (
         <div id="canvas">
             {[...context.nodes.values()].map(node => (
-                <Node key={node.id} node={node} />
+                <Node key={node.id} node={node} selected={false} />
             ))}
 
             <svg className="connections" width="100%" height="100%">

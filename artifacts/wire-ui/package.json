@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "A React package with components for Wire applications",
     "author": "Emil Widlund",
-    "homepage": "https://github.com/emilwidlund/wire/tree/master/artifacts/wire-ui#readme",
+    "homepage": "https://github.com/emilwidlund/wire/tree/master/artifacts/wire-ui",
     "license": "MIT",
     "main": "build/index.js",
     "repository": {
@@ -11,9 +11,9 @@
         "url": "git+https://github.com/emilwidlund/wire.git"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "webpack",
         "test": "jest --verbose",
-        "dev": "tsc --watch"
+        "dev": "webpack --watch"
     },
     "bugs": {
         "url": "https://github.com/emilwidlund/wire/issues"
@@ -27,14 +27,19 @@
     "devDependencies": {
         "@types/jest": "^24.0.17",
         "@types/react": "^16.9.2",
-        "@types/react-dom": "^16.8.5",
+        "awesome-typescript-loader": "^5.2.1",
+        "css-loader": "^3.2.0",
         "jest": "^24.9.0",
         "mobx": "^5.13.0",
         "mobx-react-lite": "^1.4.1",
+        "node-sass": "^4.12.0",
         "react": "^16.9.0",
-        "react-dom": "^16.9.0",
+        "sass-loader": "^7.3.1",
+        "style-loader": "^1.0.0",
         "ts-jest": "^24.0.2",
         "typescript": "^3.5.3",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7",
         "wire-core": "^0.0.1"
     },
     "dependencies": {

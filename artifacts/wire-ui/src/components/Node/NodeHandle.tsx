@@ -6,12 +6,13 @@ import { get, set } from 'mobx';
 
 export interface INodeHandleProps {
     node: _Node;
+    selected: boolean;
 }
 
-export const NodeHandle = observer(({ node }: INodeHandleProps) => {
+export const NodeHandle = observer(({ node, selected }: INodeHandleProps) => {
     return (
-        <div className="handle" style={styles.container()}>
-            <div style={styles.name()}>
+        <div className="handle" style={styles.container(selected)}>
+            <div style={styles.name(selected)}>
                 <span>{get(node.data, 'name')}</span>
             </div>
             <div style={styles.actions()}>
@@ -42,21 +43,22 @@ export const NodeAction = observer(({ children, onClick }: React.PropsWithChildr
 });
 
 const styles: {
-    container: () => React.CSSProperties;
-    name: () => React.CSSProperties;
+    container: (selected: boolean) => React.CSSProperties;
+    name: (selected: boolean) => React.CSSProperties;
     actions: () => React.CSSProperties;
 } = {
-    container: () => ({
+    container: (selected: boolean) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         padding: 8,
         paddingLeft: 12,
         paddingRight: 12,
-        borderBottom: '2px solid #0044ff'
+        borderBottom: selected ? '2px solid #0044ff' : '2px solid rgba(255, 255, 255, .2)'
     }),
-    name: () => ({
-        flexGrow: 1
+    name: (selected: boolean) => ({
+        flexGrow: 1,
+        opacity: selected ? 1 : 0.4
     }),
     actions: () => ({
         display: 'flex',

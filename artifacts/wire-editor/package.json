@@ -17,7 +17,7 @@
     "bugs": {
         "url": "https://github.com/emilwidlund/wire/issues"
     },
-    "homepage": "https://github.com/emilwidlund/wire#readme",
+    "homepage": "https://github.com/emilwidlund/wire/tree/master/artifacts/wire-editor",
     "dependencies": {
         "mobx": "^5.13.0",
         "mobx-react-lite": "^1.4.1",

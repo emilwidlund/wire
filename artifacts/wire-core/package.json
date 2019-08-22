@@ -4,6 +4,14 @@
     "main": "build/index.js",
     "author": "Emil Widlund",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/emilwidlund/wire.git"
+    },
+    "bugs": {
+        "url": "https://github.com/emilwidlund/wire/issues"
+    },
+    "homepage": "https://github.com/emilwidlund/wire/tree/master/artifacts/wire-core",
     "scripts": {
         "test": "jest --verbose",
         "build": "tsc",
