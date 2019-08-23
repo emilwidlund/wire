@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Connection as _Connection, Context, InputPort, OutputPort } from 'wire-core';
 import { Node, Connection } from 'wire-ui';
 
-import { useMousePosition } from '../../hooks/useMousePosition';
+import { useMousePosition, useCanvasZoom } from '../../hooks';
 
 interface ConnectionsProps {
     context: Context;
@@ -13,6 +13,7 @@ export const Canvas = observer(({ context }: ConnectionsProps) => {
     const [mouseDownPort, setMouseDownPort] = React.useState<OutputPort<any>>(null);
 
     const { mouseMoveHandler, mousePosition } = useMousePosition();
+    // const { ref, translateX, translateY, scale } = useCanvasZoom(0.1);
 
     return (
         <div
