@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { MultiplicationNode, SineNode, Context } from 'wire-core';
 import { WebGLRenderer, Scene, PerspectiveCamera, Mesh, BoxGeometry, MeshNormalMaterial } from 'three';
+import { Resizable } from 're-resizable';
 
 import { Canvas } from '../Canvas';
 
@@ -62,7 +63,17 @@ export const App = () => {
     return (
         <div id="app">
             <Canvas context={context} />
-            <div ref={rendererRef} />
+            <Resizable
+                defaultSize={{ width: 800, height: '100%' }}
+                onResize={(e, direction, target) => {
+                    camera.aspect = target.clientWidth / target.clientHeight;
+                    camera.updateProjectionMatrix();
+
+                    renderer.setSize(target.clientWidth, target.clientHeight);
+                }}
+            >
+                <div ref={rendererRef} style={{ width: '100%', height: '100%' }} />
+            </Resizable>
         </div>
     );
 };

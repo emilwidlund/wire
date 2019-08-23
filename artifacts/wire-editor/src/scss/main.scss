@@ -12,10 +12,6 @@ body {
 
     #app {
         display: flex;
-
-        & > div {
-            flex: 1;
-        }
     }
 }
 
