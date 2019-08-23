@@ -4,6 +4,7 @@ import useOnClickOutside from 'use-onclickoutside';
 import { Node as _Node, InputPort, OutputPort } from 'wire-core';
 import { observer } from 'mobx-react-lite';
 import { set } from 'mobx';
+import * as classnames from 'classnames';
 
 import { NodeHandle } from './NodeHandle';
 import { NodeWindow } from './NodeWindow';
@@ -57,7 +58,7 @@ export const Node = observer(
                 onMouseDown={onMouseDown}
                 disabled={disabled}
             >
-                <div ref={nodeRef} className="node" onClick={onClick}>
+                <div ref={nodeRef} className={classnames(['node', selected ? 'selected' : null])} onClick={onClick}>
                     <NodeHandle node={node} selected={selected} />
                     <NodeWindow children={children} />
                     <NodeContent node={node} onPortMouseDown={onPortMouseDown} onPortMouseUp={onPortMouseUp} />
