@@ -9,6 +9,7 @@
     overflow: hidden;
     font-size: 12px;
     color: #fff;
+    z-index: 9;
     user-select: none;
 
     @import './NodeHandle';

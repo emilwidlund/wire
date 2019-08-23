@@ -10,39 +10,39 @@ interface ConnectionsProps {
 }
 
 export const Canvas = observer(({ context }: ConnectionsProps) => {
-    const canvasRef = React.useRef<HTMLDivElement>();
     const [mouseDownPort, setMouseDownPort] = React.useState<OutputPort<any>>(null);
 
-    const mousePosition = useMousePosition(canvasRef);
+    const { mouseMoveHandler, mousePosition } = useMousePosition();
 
     return (
         <div
-            ref={canvasRef}
             id="canvas"
             onMouseUp={() => {
                 setMouseDownPort(null);
             }}
         >
-            {Array.from(context.nodes.values()).map(node => (
-                <Node
-                    key={node.id}
-                    node={node}
-                    selected={false}
-                    onClickOutside={() => console.log('outside')}
-                    onPortMouseDown={(e, port) => {
-                        if (port instanceof OutputPort) {
-                            setMouseDownPort(port);
-                        }
-                    }}
-                    onPortMouseUp={(e, port) => {
-                        if (mouseDownPort && port instanceof InputPort) {
-                            mouseDownPort.connect(port);
-                        }
-                    }}
-                />
-            ))}
+            <div id="nodes" onMouseMove={mouseMoveHandler}>
+                {Array.from(context.nodes.values()).map(node => (
+                    <Node
+                        key={node.id}
+                        node={node}
+                        selected={false}
+                        onClickOutside={() => console.log('outside')}
+                        onPortMouseDown={(e, port) => {
+                            if (port instanceof OutputPort) {
+                                setMouseDownPort(port);
+                            }
+                        }}
+                        onPortMouseUp={(e, port) => {
+                            if (mouseDownPort && port instanceof InputPort) {
+                                mouseDownPort.connect(port);
+                            }
+                        }}
+                    />
+                ))}
+            </div>
 
-            <svg className="connections" width="100%" height="100%">
+            <svg id="connections" width="100%" height="100%" onMouseMove={mouseMoveHandler}>
                 {Array.from(context.connections.values()).map((c: _Connection) => {
                     return <Connection key={c.id} connection={c} onClick={() => c.destroy()} />;
                 })}

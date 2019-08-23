@@ -1,22 +1,21 @@
 import * as React from 'react';
 
-export const useMousePosition = (ref: React.RefObject<HTMLDivElement>) => {
+export const useMousePosition = () => {
     const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
 
-    const mouseMoveHandler = React.useCallback((e: MouseEvent) => {
-        setMousePosition({
-            x: e.clientX,
-            y: e.clientY
-        });
-    }, []);
+    const mouseMoveHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement, MouseEvent>) => {
+        if ((e.nativeEvent.target as HTMLDivElement | SVGElement).id === 'connections') {
+            setMousePosition({
+                x: e.nativeEvent.offsetX,
+                y: e.nativeEvent.offsetY
+            });
+        } else {
+            setMousePosition({
+                x: mousePosition.x + e.movementX,
+                y: mousePosition.y + e.movementY
+            });
+        }
+    };
 
-    React.useEffect(() => {
-        ref.current.addEventListener('mousemove', mouseMoveHandler);
-
-        return () => {
-            ref.current.removeEventListener('mousemove', mouseMoveHandler);
-        };
-    }, []);
-
-    return mousePosition;
+    return { mouseMoveHandler, mousePosition };
 };
