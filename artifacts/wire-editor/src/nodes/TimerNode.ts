@@ -1,9 +1,14 @@
 import * as _ from 'lodash';
 import { Context, Node, NodeProps, NodeInputPorts, NodeOutputPorts, InputPort, OutputPort } from 'wire-core';
-import { Mesh } from 'three';
+import { Clock } from 'three';
+
+export interface TimerNodeInputPorts extends NodeInputPorts {
+    paused: InputPort<boolean>;
+}
 
 export interface TimerNodeOutputPorts extends NodeOutputPorts {
     milliseconds: OutputPort<number>;
+    seconds: OutputPort<number>;
 }
 
 /**
@@ -12,19 +17,33 @@ export interface TimerNodeOutputPorts extends NodeOutputPorts {
 export class TimerNode extends Node {
     outputPorts: TimerNodeOutputPorts;
 
-    mesh: Mesh;
-
-    startDate: number;
-    now: number;
+    animationFrameRequestId: number;
+    clock: Clock;
 
     constructor(context: Context, props: NodeProps = {}) {
         _.defaultsDeep(props, {
+            inputPorts: {
+                paused: {
+                    defaultValue: false,
+                    validate: (val: any) => _.isBoolean(val),
+                    data: {
+                        name: 'Paused'
+                    }
+                }
+            },
             outputPorts: {
                 milliseconds: {
                     defaultValue: 0,
                     validate: (val: any) => _.isNumber(val),
                     data: {
-                        name: 'MS'
+                        name: 'Milliseconds'
+                    }
+                },
+                seconds: {
+                    defaultValue: 0,
+                    validate: (val: any) => _.isNumber(val),
+                    data: {
+                        name: 'Seconds'
                     }
                 }
             },
@@ -35,17 +54,28 @@ export class TimerNode extends Node {
 
         super(context, props);
 
-        this.updateTimer = this.updateTimer.bind(this);
-        this.startDate = Date.now();
+        this.clock = new Clock(true);
 
-        requestAnimationFrame(this.updateTimer);
+        this.updateTimer = this.updateTimer.bind(this);
+
+        this.animationFrameRequestId = requestAnimationFrame(this.updateTimer);
     }
 
     updateTimer() {
-        requestAnimationFrame(this.updateTimer);
+        this.animationFrameRequestId = requestAnimationFrame(this.updateTimer);
 
-        this.now = Date.now();
+        this.outputPorts.milliseconds.value = this.clock.getElapsedTime() * 1000;
 
-        this.outputPorts.milliseconds.value = this.now - this.startDate;
+        if (Math.floor(this.clock.getElapsedTime()) > this.outputPorts.seconds.value) {
+            this.outputPorts.seconds.value = Math.floor(this.clock.getElapsedTime());
+        }
+    }
+
+    compute() {
+        if (!this.inputPorts.paused) {
+            this.animationFrameRequestId = requestAnimationFrame(this.updateTimer);
+        } else {
+            cancelAnimationFrame(this.animationFrameRequestId);
+        }
     }
 }
