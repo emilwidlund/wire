@@ -13,40 +13,16 @@ import { Vector3Node } from '../../nodes/Vector3Node';
 // const wireContext = WireContext.import(localStorage.getItem('wire_context'));
 const wireContext = new WireContext();
 
-const context = new EditorContext(wireContext);
+const context = new EditorContext({ wireContext });
 
 export const App = () => {
     const rendererRef = React.useRef<HTMLDivElement>();
 
-    let renderer: WebGLRenderer;
-    let scene: Scene;
-    let camera: PerspectiveCamera;
-    let mesh: Mesh;
-
-    const update = React.useCallback(() => {
-        requestAnimationFrame(update);
-
-        renderer.render(scene, camera);
-    }, []);
-
     React.useEffect(() => {
-        renderer = new WebGLRenderer({ antialias: true });
-        renderer.setSize(rendererRef.current.clientWidth, rendererRef.current.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        context.setupTHREE(rendererRef);
 
-        scene = new Scene();
-        camera = new PerspectiveCamera(
-            35,
-            rendererRef.current.clientWidth / rendererRef.current.clientHeight,
-            0.1,
-            10000
-        );
-        mesh = new Mesh(new BoxGeometry(1, 1, 1), new MeshNormalMaterial());
-
-        scene.add(mesh);
-        camera.position.z = 10;
-
-        rendererRef.current.appendChild(renderer.domElement);
+        const mesh = new Mesh(new BoxGeometry(1, 1, 1), new MeshNormalMaterial());
+        context.scene.add(mesh);
 
         new TimerNode(wireContext);
         new MultiplicationNode(wireContext, { inputPorts: { a: { defaultValue: 1 }, b: { defaultValue: 0.001 } } });
@@ -56,8 +32,6 @@ export const App = () => {
         setInterval(() => {
             localStorage.setItem('wire_context', wireContext.serialize());
         }, 2000);
-
-        requestAnimationFrame(update);
     }, []);
 
     return (
@@ -66,10 +40,10 @@ export const App = () => {
             <Resizable
                 defaultSize={{ width: 800, height: '100%' }}
                 onResize={(e, direction, target) => {
-                    camera.aspect = target.clientWidth / target.clientHeight;
-                    camera.updateProjectionMatrix();
+                    context.camera.aspect = target.clientWidth / target.clientHeight;
+                    context.camera.updateProjectionMatrix();
 
-                    renderer.setSize(target.clientWidth, target.clientHeight);
+                    context.renderer.setSize(target.clientWidth, target.clientHeight);
                 }}
             >
                 <div ref={rendererRef} style={{ width: '100%', height: '100%' }} />
