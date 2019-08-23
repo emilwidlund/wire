@@ -66,16 +66,24 @@ export class TimerNode extends Node {
 
         this.outputPorts.milliseconds.value = this.clock.getElapsedTime() * 1000;
 
-        if (Math.floor(this.clock.getElapsedTime()) > this.outputPorts.seconds.value) {
+        if (Math.floor(this.clock.getElapsedTime()) !== this.outputPorts.seconds.value) {
             this.outputPorts.seconds.value = Math.floor(this.clock.getElapsedTime());
         }
     }
 
     compute() {
-        if (!this.inputPorts.paused) {
-            this.animationFrameRequestId = requestAnimationFrame(this.updateTimer);
-        } else {
+        if (!this.clock) return;
+
+        if (this.inputPorts.paused.value && this.clock.running) {
+            this.clock.stop();
+        } else if (!this.inputPorts.paused.value && !this.clock.running) {
+            this.clock.start();
+        }
+
+        if (this.inputPorts.paused.value) {
             cancelAnimationFrame(this.animationFrameRequestId);
+        } else {
+            this.animationFrameRequestId = requestAnimationFrame(this.updateTimer);
         }
     }
 }
