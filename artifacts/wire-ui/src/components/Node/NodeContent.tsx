@@ -102,9 +102,7 @@ export const NodePort = observer(({ port, onPortMouseDown, onPortMouseUp }: INod
             onMouseUp={e => onPortMouseUp(e, port)}
         >
             {port instanceof InputPort && <div className="connector" />}
-            <span className="name">
-                {port.data.name}: {_.round(port.value, 1)}
-            </span>
+            <span className="name">{port.data.name}</span>
             {port instanceof OutputPort && <div className="connector" />}
         </div>
     );

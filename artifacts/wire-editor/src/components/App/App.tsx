@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { MultiplicationNode, Context } from 'wire-core';
+import { MultiplicationNode, SineNode, Context } from 'wire-core';
 import { WebGLRenderer, Scene, PerspectiveCamera, Mesh, BoxGeometry, MeshNormalMaterial } from 'three';
 
 import { Canvas } from '../Canvas';
 
 import { TimerNode } from '../../nodes/TimerNode';
 import { MeshNode } from '../../nodes/MeshNode';
+import { Vector3Node } from '../../nodes/Vector3Node';
 
 // const context = Context.import(localStorage.getItem('wire_context'));
 const context = new Context();
@@ -49,6 +50,7 @@ export const App = () => {
         new TimerNode(context);
         new MultiplicationNode(context, { inputPorts: { a: { defaultValue: 1 }, b: { defaultValue: 0.001 } } });
         new MeshNode(context, {}, mesh);
+        new SineNode(context);
 
         setInterval(() => {
             localStorage.setItem('wire_context', context.serialize());
