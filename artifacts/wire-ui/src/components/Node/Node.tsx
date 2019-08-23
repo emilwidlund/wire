@@ -16,6 +16,7 @@ export interface INodeProps {
     disabled?: boolean;
     selected?: boolean;
     bounds?: DraggableBounds;
+    onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
     onMouseDown?(e: MouseEvent): void;
     onPortMouseDown?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
     onPortMouseUp?(e: React.MouseEvent<HTMLDivElement, MouseEvent>, port: InputPort<any> | OutputPort<any>): void;
@@ -28,6 +29,7 @@ export const Node = observer(
         disabled,
         selected,
         bounds,
+        onClick,
         onMouseDown,
         onPortMouseDown,
         onPortMouseUp,
@@ -55,7 +57,7 @@ export const Node = observer(
                 onMouseDown={onMouseDown}
                 disabled={disabled}
             >
-                <div ref={nodeRef} className="node">
+                <div ref={nodeRef} className="node" onClick={onClick}>
                     <NodeHandle node={node} selected={selected} />
                     <NodeWindow children={children} />
                     <NodeContent node={node} onPortMouseDown={onPortMouseDown} onPortMouseUp={onPortMouseUp} />

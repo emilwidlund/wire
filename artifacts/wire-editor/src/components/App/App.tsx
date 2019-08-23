@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { MultiplicationNode, SineNode, Context } from 'wire-core';
+import { MultiplicationNode, SineNode, Context as WireContext } from 'wire-core';
 import { WebGLRenderer, Scene, PerspectiveCamera, Mesh, BoxGeometry, MeshNormalMaterial } from 'three';
 import { Resizable } from 're-resizable';
 
+import { EditorContext } from '../../EditorContext';
 import { Canvas } from '../Canvas';
 
 import { TimerNode } from '../../nodes/TimerNode';
 import { MeshNode } from '../../nodes/MeshNode';
 import { Vector3Node } from '../../nodes/Vector3Node';
 
-// const context = Context.import(localStorage.getItem('wire_context'));
-const context = new Context();
+// const wireContext = WireContext.import(localStorage.getItem('wire_context'));
+const wireContext = new WireContext();
+
+const context = new EditorContext(wireContext);
 
 export const App = () => {
     const rendererRef = React.useRef<HTMLDivElement>();
@@ -45,13 +48,13 @@ export const App = () => {
 
         rendererRef.current.appendChild(renderer.domElement);
 
-        new TimerNode(context);
-        new MultiplicationNode(context, { inputPorts: { a: { defaultValue: 1 }, b: { defaultValue: 0.001 } } });
-        new MeshNode(context, {}, mesh);
-        new SineNode(context);
+        new TimerNode(wireContext);
+        new MultiplicationNode(wireContext, { inputPorts: { a: { defaultValue: 1 }, b: { defaultValue: 0.001 } } });
+        new MeshNode(wireContext, {}, mesh);
+        new SineNode(wireContext);
 
         setInterval(() => {
-            localStorage.setItem('wire_context', context.serialize());
+            localStorage.setItem('wire_context', wireContext.serialize());
         }, 2000);
 
         requestAnimationFrame(update);

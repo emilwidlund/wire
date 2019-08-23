@@ -1,21 +1,21 @@
 import * as React from 'react';
 
-export const useMousePosition = () => {
-    const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+import { EditorContext } from '../EditorContext';
 
+export const useMousePosition = (context: EditorContext) => {
     const mouseMoveHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement, MouseEvent>) => {
         if ((e.nativeEvent.target as HTMLDivElement | SVGElement).id === 'connections') {
-            setMousePosition({
+            context.mousePosition = {
                 x: e.nativeEvent.offsetX,
                 y: e.nativeEvent.offsetY
-            });
+            };
         } else {
-            setMousePosition({
-                x: mousePosition.x + e.movementX,
-                y: mousePosition.y + e.movementY
-            });
+            context.mousePosition = {
+                x: context.mousePosition.x + e.movementX,
+                y: context.mousePosition.y + e.movementY
+            };
         }
     };
 
-    return { mouseMoveHandler, mousePosition };
+    return { mouseMoveHandler };
 };
