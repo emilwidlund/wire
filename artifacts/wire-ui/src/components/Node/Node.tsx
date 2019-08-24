@@ -58,7 +58,7 @@ export const Node = observer(
                 onMouseDown={onMouseDown}
                 disabled={disabled}
             >
-                <div ref={nodeRef} className={classnames(['node', selected ? 'selected' : null])} onClick={onClick}>
+                <div ref={nodeRef} className={classnames(['node', selected && 'selected'])} onClick={onClick}>
                     <NodeHandle node={node} selected={selected} />
                     <NodeWindow children={children} />
                     <NodeContent node={node} onPortMouseDown={onPortMouseDown} onPortMouseUp={onPortMouseUp} />
