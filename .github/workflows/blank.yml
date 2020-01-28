@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        npm run bootstrap
+        npm run test
+        npm run build
